@@ -6,7 +6,6 @@ declare namespace Cloudflare {
 		mainModule: typeof import("./dist/_worker.js/index");
 	}
 	interface Env {
-		WEBSITE_CACHE: KVNamespace;
 		ASSETS: Fetcher;
 	}
 }

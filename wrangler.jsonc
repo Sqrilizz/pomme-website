@@ -8,12 +8,6 @@
     "binding": "ASSETS",
     "directory": "./dist",
   },
-  "kv_namespaces": [
-    {
-      "binding": "WEBSITE_CACHE",
-      "id": "REMOVED",
-    },
-  ],
   "observability": {
     "enabled": true,
   },
