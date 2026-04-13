@@ -10,7 +10,7 @@ import mdx from "@astrojs/mdx";
 const GIT_COMMIT_HASH = (process.env.GITHUB_SHA || "").trim().slice(0, 7) || execSync("git rev-parse --short HEAD").toString().trim();
 
 export default defineConfig({
-  site: "https://pomme.dev",
+  site: "https://pomme.rs",
 
   vite: {
     plugins: [tailwindcss()],

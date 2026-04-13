@@ -20,7 +20,7 @@ export const GET: APIRoute = async ({ site }) => {
   return rss({
     title: "Pomme News",
     description: "Updates and news from the Pomme project",
-    site: site?.toString() ?? "https://pomme.dev",
+    site: site?.toString() ?? "https://pomme.rs",
     items,
     trailingSlash: false,
   });

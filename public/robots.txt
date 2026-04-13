@@ -5,4 +5,4 @@ Disallow: /repository/
 Disallow: /repo/
 Disallow: /api/
 
-Sitemap: https://pomme.dev/sitemap-index.xml
+Sitemap: https://pomme.rs/sitemap-index.xml
