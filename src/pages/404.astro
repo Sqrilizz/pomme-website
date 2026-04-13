@@ -1,0 +1,45 @@
+---
+import Button from "@/components/input/Button.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout
+  title="404 · Not found"
+  description="The page you're looking for doesn't exist."
+  keywords={["404", "not found"]}
+  canonical="/404"
+>
+  <section class="bg-section-dark">
+    <div class="mx-auto flex min-h-[calc(100vh-14rem)] max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center">
+      <div class="animate-fade-up font-[Rajdhani] text-[8rem] font-bold leading-none tracking-wide text-primary-400 lg:text-[12rem]">
+        404
+      </div>
+
+      <h1 class="animate-fade-up delay-100 mt-2 font-[Rajdhani] text-2xl font-bold uppercase tracking-wide lg:text-3xl">
+        Page <span class="text-primary-400">not found</span>
+      </h1>
+
+      <p class="animate-fade-up delay-200 mt-4 max-w-md text-muted">
+        The page you're looking for doesn't exist, has been moved, or is
+        hiding behind a chunk that hasn't loaded yet.
+      </p>
+
+      <div class="animate-fade-up delay-300 mt-10 flex flex-col gap-4 sm:flex-row">
+        <Button
+          variant="filled"
+          href="/"
+          className="px-8 py-2.5 rounded-[10px] text-base tracking-wider font-[Rajdhani] font-bold uppercase"
+        >
+          Back to home
+        </Button>
+        <Button
+          variant="outlined"
+          href="/downloads"
+          className="px-8 py-2.5 rounded-[10px] text-base tracking-wider font-[Rajdhani] font-semibold uppercase"
+        >
+          Download Pomme
+        </Button>
+      </div>
+    </div>
+  </section>
+</Layout>

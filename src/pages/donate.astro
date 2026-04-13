@@ -1,0 +1,128 @@
+---
+import Button from "@/components/input/Button.astro";
+import Layout from "@/layouts/Layout.astro";
+import RevealObserver from "@/components/RevealObserver.astro";
+
+const stats = [
+  { value: "$0", label: "Per Month" },
+  { value: "0", label: "Members" },
+  { value: "0", label: "Sponsors" },
+];
+
+const supporters: { tier: string; price: number; names: string[] }[] = [
+  { tier: "Corporate Titanium", price: 6000, names: [] },
+  { tier: "Corporate Platinum", price: 4000, names: [] },
+  { tier: "Corporate Bronze", price: 500, names: [] },
+  { tier: "Diamond", price: 250, names: [] },
+  { tier: "Titanium", price: 100, names: [] },
+  { tier: "Platinum", price: 50, names: [] },
+  { tier: "Gold", price: 25, names: [] },
+];
+
+const pastDonors: string[] = [];
+---
+
+<Layout
+  title="Donate"
+  description="Support Pomme and help us build a faster, open-source Minecraft client."
+  keywords={["pomme", "minecraft", "client", "donate", "support"]}
+  canonical="/donate"
+>
+  <section class="section-border section-header-bg border-b">
+    <div class="mx-auto max-w-[1400px] px-6 pt-20 pb-16 lg:pt-28">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <h1 class="animate-fade-up font-[Rajdhani] text-4xl font-bold uppercase tracking-wide lg:text-5xl">
+            Support <span class="text-primary-400">Pomme</span>
+          </h1>
+          <p class="animate-fade-up delay-100 mt-4 max-w-xl text-lg text-muted">
+            Donate to the Pomme project and support our mission to develop a fast, free, and open-source Minecraft client.
+          </p>
+        </div>
+
+        <div class="animate-fade-up delay-200 grid grid-cols-3 gap-4">
+          {stats.map((s) => (
+            <div class="glass-card px-4 py-5 text-center">
+              <div class="font-[Rajdhani] text-2xl font-bold text-primary-400 lg:text-3xl">{s.value}</div>
+              <div class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-muted">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="mx-auto max-w-[1400px] px-6 py-24">
+    <div class="reveal mb-12 text-center">
+      <span class="section-label">Tiers</span>
+      <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold uppercase tracking-wide lg:text-4xl">Choose your <span class="text-primary-400">tier</span></h2>
+      <p class="mt-3 text-muted">Every contribution helps keep Pomme fast, free, and open-source.</p>
+    </div>
+
+    <div class="gap-4" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));">
+      {[
+        { tier: "Bronze",   price: 5,   color: "#cd7f32" },
+        { tier: "Silver",   price: 10,  color: "#c0c0c0" },
+        { tier: "Gold",     price: 25,  color: "#ffd700" },
+        { tier: "Platinum", price: 50,  color: "#e5e4e2" },
+        { tier: "Titanium", price: 100, color: "#8a9ba8" },
+        { tier: "Diamond",  price: 250, color: "#b9f2ff" },
+      ].map((t, i) => (
+        <div class={`reveal reveal-delay-${(i % 6) + 1} glass-card flex flex-col items-center justify-center px-5 py-5 text-center transition-transform hover:-translate-y-1`}>
+          <div class="font-[Rajdhani] text-xs font-bold uppercase tracking-[0.1em] leading-none whitespace-nowrap" style={`color: ${t.color};`}>{t.tier}</div>
+          <div class="mt-2 font-[Rajdhani] text-3xl font-bold leading-none text-white">${t.price}</div>
+          <div class="mt-1.5 text-[10px] font-semibold uppercase tracking-wider leading-none text-muted">/ month</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-border section-alt-bg border-t">
+    <div class="mx-auto max-w-[1400px] px-6 py-24">
+      <div class="reveal mb-12">
+        <span class="section-label">Supporters</span>
+        <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold uppercase tracking-wide lg:text-4xl">Pomme Supporters</h2>
+        <p class="mt-3 text-muted">Thanks to everyone backing the project.</p>
+      </div>
+
+      {supporters.every((s) => s.names.length === 0) ? (
+        <div class="reveal glass-card px-8 py-12 text-center">
+          <p class="font-[Rajdhani] text-xl font-semibold uppercase tracking-wide">Be the first supporter</p>
+          <p class="mt-2 text-sm text-muted">Your name could go right here.</p>
+        </div>
+      ) : (
+        <div class="space-y-10">
+          {supporters.filter((s) => s.names.length > 0).map((group, i) => (
+            <div class={`reveal reveal-delay-${(i % 6) + 1}`}>
+              <div class="mb-4 flex items-baseline gap-3">
+                <h3 class="font-[Rajdhani] text-xl font-bold uppercase tracking-wide">{group.tier}</h3>
+                <span class="text-sm text-muted">${group.price} / month</span>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                {group.names.map((name) => (
+                  <span class="glass-card rounded-[10px] px-3 py-1.5 text-sm" style="color: #b8bfd9;">
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  {pastDonors.length > 0 && (
+    <section class="mx-auto max-w-[1400px] px-6 py-24">
+      <div class="reveal mb-8">
+        <span class="section-label">Past Donors</span>
+        <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold uppercase tracking-wide lg:text-4xl">With gratitude</h2>
+      </div>
+      <p class="reveal text-sm leading-relaxed text-muted">
+        {pastDonors.join(", ")}
+      </p>
+    </section>
+  )}
+  <RevealObserver />
+</Layout>

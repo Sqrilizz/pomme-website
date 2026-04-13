@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon/components";
+
+import NavLink from "@/components/layout/NavLink.astro";
+import IconButton from "@/components/IconButton.astro";
+---
+
+<nav id="nav-wrapper" class="relative z-50 transition-all duration-200" style="background: rgba(8,10,22,0.8); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
+  <div class="mx-auto flex max-w-[1400px] flex-row items-center gap-3 px-6 py-3">
+    <button id="nav-toggle" title="Toggle nav" class="mr-2 rounded-[10px] p-1.5 md:hidden" style="border: 1px solid rgba(255,255,255,0.1); background: rgba(30,34,65,0.4);">
+      <Icon name="icons/heroicons/menu" class="size-5 fill-gray-400" />
+    </button>
+
+    <a href="/" class="flex items-center gap-2.5">
+      <img src="/assets/brand/pomme.png" alt="Pomme" class="block h-7 pixel-render" />
+      <span class="font-[Rajdhani] text-lg font-bold uppercase tracking-wider">Pomme</span>
+    </a>
+
+    <div class="hidden h-4 w-px sm:block" style="background: rgba(255,255,255,0.07);"></div>
+
+    <div
+      id="nav-menu"
+      class="absolute top-full right-0 left-0 flex w-full flex-col gap-1 p-4 max-md:hidden! md:relative md:flex md:w-auto md:flex-row md:items-center md:gap-0 md:bg-transparent md:p-0"
+      style="background: rgba(8,10,22,0.95); backdrop-filter: blur(24px);"
+    >
+      <NavLink href="/">Home</NavLink>
+      <NavLink href="/downloads">Downloads</NavLink>
+      <NavLink href="https://docs.pomme.dev/" target="_blank" className="inline-flex items-center">
+        Docs
+        <Icon name="icons/heroicons/arrow-top-right-on-square" class="ml-1 size-3 opacity-30" />
+      </NavLink>
+      <NavLink href="/news">News</NavLink>
+      <NavLink href="/community">Community</NavLink>
+    </div>
+
+    <div class="grow"></div>
+
+    <IconButton icon="icons/fontawesome/discord-brands" label="Discord" href="https://discord.gg/ucBA55bHPR" external />
+    <IconButton icon="icons/fontawesome/github-brands" label="GitHub" href="https://github.com/PommeMC/Pomme-Client" external />
+  </div>
+</nav>
+
+<script>
+  document.getElementById("nav-toggle")?.addEventListener("click", () => {
+    document.getElementById("nav-menu")?.classList?.toggle("max-md:hidden!");
+  });
+  window.addEventListener("scroll", () => {
+    const wrapper = document.getElementById("nav-wrapper");
+    if (window.scrollY > 10) {
+      wrapper?.style.setProperty("border-bottom", "1px solid rgba(255,255,255,0.05)");
+    } else {
+      wrapper?.style.setProperty("border-bottom", "none");
+    }
+  });
+</script>

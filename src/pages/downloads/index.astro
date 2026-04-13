@@ -1,0 +1,191 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout.astro";
+import RevealObserver from "@/components/RevealObserver.astro";
+import { formatBytes } from "@/utils/content";
+import { formatRelativeDate } from "@/utils/time";
+
+export const prerender = true;
+
+type GhAsset = { name: string; size: number; browser_download_url: string };
+type GhRelease = { tag_name: string; published_at: string; assets: GhAsset[]; html_url: string };
+
+let release: GhRelease | null = null;
+let checksums: Record<string, string> = {};
+try {
+  const res = await fetch("https://api.github.com/repos/PommeMC/Pomme-Client/releases/latest", {
+    headers: { "User-Agent": "pomme-website-build", Accept: "application/vnd.github+json" },
+  });
+  if (res.ok) {
+    release = (await res.json()) as GhRelease;
+    const sumsAsset = release.assets.find((a) => /^(sha256sums|checksums)(\.txt)?$/i.test(a.name));
+    if (sumsAsset) {
+      const sumsRes = await fetch(sumsAsset.browser_download_url, { headers: { "User-Agent": "pomme-website-build" } });
+      if (sumsRes.ok) {
+        const text = await sumsRes.text();
+        for (const line of text.split("\n")) {
+          const m = line.trim().match(/^([a-f0-9]{64})\s+\*?(.+)$/i);
+          if (m) checksums[m[2]] = m[1];
+        }
+      }
+    }
+  }
+} catch {
+  release = null;
+}
+
+const fallbackUrl = "https://github.com/PommeMC/Pomme-Client/releases/latest";
+
+const platforms = [
+  { key: "windows", name: "Windows", desc: "Windows 10 or later",  ext: ".exe",    match: /\.(exe|msi)$/i,          icon: "icons/fontawesome/windows-brands" },
+  { key: "linux",   name: "Linux",   desc: "x86_64, glibc 2.31+",  ext: ".tar.gz", match: /\.(tar\.gz|AppImage)$/i, icon: "icons/fontawesome/linux-brands" },
+  { key: "macos",   name: "macOS",   desc: "Apple Silicon & Intel", ext: ".dmg",   match: /\.(dmg|pkg)$/i,          icon: "icons/fontawesome/apple-brands" },
+];
+
+const platformData = platforms.map((p) => {
+  const asset = release?.assets.find((a) => p.match.test(a.name));
+  return {
+    ...p,
+    href: asset?.browser_download_url ?? fallbackUrl,
+    size: asset ? formatBytes(asset.size) : null,
+    sha256: asset ? checksums[asset.name] ?? null : null,
+  };
+});
+
+const requirements = [
+  { label: "GPU", value: "Vulkan 1.2 compatible" },
+  { label: "CPU", value: "x86_64 or ARM64" },
+  { label: "RAM", value: "256 MB minimum" },
+  { label: "Disk", value: "~50 MB" },
+];
+---
+
+<Layout
+  title="Downloads"
+  description="Download Pomme, a high-performance Minecraft client written in Rust."
+  keywords={["pomme", "minecraft", "client", "downloads"]}
+  canonical="/downloads"
+>
+  <section class="section-border section-header-bg border-b">
+    <div class="mx-auto max-w-[1400px] px-6 pt-20 pb-16 text-center lg:pt-28">
+      <h1 class="animate-fade-up font-[Rajdhani] text-4xl font-bold uppercase tracking-wide lg:text-5xl">
+        Download <span class="text-primary-400">Pomme</span>
+      </h1>
+      <p class="animate-fade-up delay-100 mt-4 text-lg text-muted">
+        Single binary. No installer. No JVM.
+      </p>
+      {release && (
+        <p class="animate-fade-up delay-200 mt-3 text-sm text-dim">
+          <span class="font-[Rajdhani] font-bold uppercase tracking-wider text-primary-400">{release.tag_name}</span>
+          <span class="mx-2">·</span>
+          released {formatRelativeDate(new Date(release.published_at))}
+        </p>
+      )}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1400px] px-6 py-24">
+    <div class="grid gap-5 md:grid-cols-3">
+      {platformData.map((p, i) => (
+        <div class={`reveal reveal-delay-${i + 1} flex flex-col`} data-platform={p.key}>
+          <a
+            href={p.href}
+            target="_blank"
+            rel="noreferrer"
+            class="glass feature-lift group relative flex flex-1 flex-col items-center p-10 text-center"
+          >
+            <span
+              data-recommended
+              hidden
+              class="accent-badge absolute top-3 right-3 rounded-full px-2.5 py-0.5 font-[Rajdhani] text-[10px] font-bold uppercase tracking-wider text-primary-400"
+            >
+              Recommended
+            </span>
+            <Icon name={p.icon} class="mb-5 size-8 fill-primary-400 transition-transform duration-300 group-hover:scale-110" />
+            <h3 class="font-[Rajdhani] text-2xl font-bold uppercase tracking-wide">{p.name}</h3>
+            <p class="mt-1 text-sm text-dim">{p.desc}</p>
+            <div class="mt-8 w-full rounded-[10px] py-3 text-center font-[Rajdhani] text-sm font-bold uppercase tracking-wider text-primary-400 transition-all duration-300 accent-badge">
+              Download {p.ext}
+              {p.size && <span class="ml-1.5 opacity-60">· {p.size}</span>}
+            </div>
+          </a>
+          {p.sha256 && (
+            <details class="mt-3 px-2">
+              <summary class="cursor-pointer text-center text-xs text-dim transition-colors hover:text-muted">Verify · SHA256</summary>
+              <code class="mt-2 block overflow-x-auto rounded-[6px] px-2 py-1.5 font-mono text-[10px] leading-relaxed text-muted" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">{p.sha256}</code>
+            </details>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10">
+      <div class="glass-heavy mx-auto max-w-2xl rounded-[14px] px-8 py-6">
+        <div class="mb-3 flex items-center gap-2">
+          <Icon name="icons/heroicons/code-bracket" class="size-4 fill-primary-400" />
+          <span class="font-[Rajdhani] text-sm font-bold uppercase tracking-wider text-muted">Build from source</span>
+        </div>
+        <pre class="overflow-x-auto rounded-[8px] px-4 py-3 font-mono text-sm leading-relaxed text-primary-400" style="background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.1);"><code>git clone https://github.com/PommeMC/Pomme-Client.git
+cd Pomme-Client
+cargo build --release</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-border section-alt-bg border-t">
+    <div class="mx-auto max-w-[1400px] px-6 py-24">
+      <div class="grid items-start gap-16 lg:grid-cols-2">
+        <div class="reveal">
+          <span class="section-label">Requirements</span>
+          <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold uppercase tracking-wide lg:text-4xl">System requirements</h2>
+          <p class="mt-4 leading-relaxed text-muted">
+            Pomme is lightweight by design. A Vulkan-capable GPU is the only real
+            requirement - everything else is minimal.
+          </p>
+        </div>
+        <div class="reveal reveal-delay-2 space-y-3">
+          {requirements.map((r) => (
+            <div class="glass-card flex items-center justify-between rounded-[10px] px-5 py-4">
+              <span class="font-[Rajdhani] text-sm font-bold uppercase tracking-wider text-dim">{r.label}</span>
+              <span class="text-sm text-right text-muted">{r.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-border border-t">
+    <div class="mx-auto max-w-[1400px] px-6 py-24 text-center">
+      <p class="text-sm text-muted">
+        Looking for older versions or pre-release builds?
+      </p>
+      <a
+        href="https://github.com/PommeMC/Pomme-Client/releases"
+        target="_blank"
+        rel="noreferrer"
+        class="mt-3 inline-flex items-center gap-1.5 font-[Rajdhani] text-sm font-semibold uppercase tracking-wider text-primary-400 transition-colors hover:text-primary-500"
+      >
+        View all releases on GitHub
+        <Icon name="icons/heroicons/arrow-top-right-on-square" class="h-4 w-4" />
+      </a>
+    </div>
+  </section>
+  <RevealObserver />
+</Layout>
+
+<script is:inline>
+  (() => {
+    const ua = navigator.userAgent;
+    let key = null;
+    if (/Windows/i.test(ua)) key = "windows";
+    else if (/Mac|iPhone|iPad/i.test(ua)) key = "macos";
+    else if (/Linux|X11/i.test(ua)) key = "linux";
+    if (!key) return;
+    const wrapper = document.querySelector(`[data-platform="${key}"]`);
+    if (wrapper) {
+      wrapper.querySelector("a")?.classList.add("platform-match");
+      wrapper.querySelector("[data-recommended]")?.removeAttribute("hidden");
+    }
+  })();
+</script>

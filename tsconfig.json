@@ -1,0 +1,14 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "paths": {
+      "*": ["./*"],
+      "@/*": ["./src/*"]
+    },
+    "types": ["./worker-configuration.d.ts"],
+    "strictNullChecks": true,
+    "allowJs": true
+  }
+}
