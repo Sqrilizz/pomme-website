@@ -5,15 +5,24 @@ import NavLink from "@/components/layout/NavLink.astro";
 import IconButton from "@/components/IconButton.astro";
 ---
 
-<nav id="nav-wrapper" class="relative z-50 transition-all duration-200" style="background: rgba(8,10,22,0.8); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
+<nav
+  id="nav-wrapper"
+  class="relative z-50 transition-all duration-200"
+  style="background: rgba(8,10,22,0.8); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
+>
   <div class="mx-auto flex max-w-[1400px] flex-row items-center gap-3 px-6 py-3">
-    <button id="nav-toggle" title="Toggle nav" class="mr-2 rounded-[10px] p-1.5 md:hidden" style="border: 1px solid rgba(255,255,255,0.1); background: rgba(30,34,65,0.4);">
+    <button
+      id="nav-toggle"
+      title="Toggle nav"
+      class="mr-2 rounded-[10px] p-1.5 md:hidden"
+      style="border: 1px solid rgba(255,255,255,0.1); background: rgba(30,34,65,0.4);"
+    >
       <Icon name="icons/heroicons/menu" class="size-5 fill-gray-400" />
     </button>
 
     <a href="/" class="flex items-center gap-2.5">
-      <img src="/assets/brand/pomme.png" alt="Pomme" class="block h-7 pixel-render" />
-      <span class="font-[Rajdhani] text-lg font-bold uppercase tracking-wider">Pomme</span>
+      <img src="/assets/brand/pomme.png" alt="Pomme" class="pixel-render block h-7" />
+      <span class="font-[Rajdhani] text-lg font-bold tracking-wider uppercase">Pomme</span>
     </a>
 
     <div class="hidden h-4 w-px sm:block" style="background: rgba(255,255,255,0.07);"></div>

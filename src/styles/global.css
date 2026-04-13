@@ -65,9 +65,15 @@ html {
     --fg-muted: #8890b0;
   }
 }
-.text-muted { color: var(--fg-muted); }
-.bg-section-dark { background: transparent; }
-.bg-section-light { background: rgba(14, 16, 34, 0.4); }
+.text-muted {
+  color: var(--fg-muted);
+}
+.bg-section-dark {
+  background: transparent;
+}
+.bg-section-light {
+  background: rgba(14, 16, 34, 0.4);
+}
 .section-label {
   font-family: "Rajdhani", sans-serif;
   font-size: 0.875rem;
@@ -76,22 +82,35 @@ html {
   letter-spacing: 0.2em;
   color: var(--accent);
 }
-.text-dim { color: #4a5070; }
-.section-header-bg { background: rgba(14, 16, 34, 0.4); }
-.section-alt-bg { background: rgba(14, 16, 34, 0.25); }
+.text-dim {
+  color: #4a5070;
+}
+.section-header-bg {
+  background: rgba(14, 16, 34, 0.4);
+}
+.section-alt-bg {
+  background: rgba(14, 16, 34, 0.25);
+}
 .accent-badge {
   background: rgba(74, 222, 128, 0.08);
   border: 1px solid rgba(74, 222, 128, 0.15);
 }
-.border-subtle { border: 1px solid rgba(255, 255, 255, 0.07); }
-.glass-bg { background: rgba(18, 20, 40, 0.55); }
+.border-subtle {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.glass-bg {
+  background: rgba(18, 20, 40, 0.55);
+}
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 14px;
 }
 
-[role="button"], button { cursor: pointer; }
+[role="button"],
+button {
+  cursor: pointer;
+}
 
 :not(pre) > code {
   @apply rounded font-mono;
@@ -109,13 +128,24 @@ html {
   }
 }
 
-.prose code::before, .prose code::after { content: none !important; }
-.prose :where(pre):not(:where([class~="not-prose"] *)) { @apply bg-transparent; }
+.prose code::before,
+.prose code::after {
+  content: none !important;
+}
+.prose :where(pre):not(:where([class~="not-prose"] *)) {
+  @apply bg-transparent;
+}
 .prose {
   --tw-prose-body: theme(colors.gray.800);
   --tw-prose-headings: theme(colors.gray.900);
-  a { color: #16a34a; }
-  @variant dark { a { color: #4ade80; } }
+  a {
+    color: #16a34a;
+  }
+  @variant dark {
+    a {
+      color: #4ade80;
+    }
+  }
   word-break: keep-all;
   overflow-wrap: anywhere;
 }
@@ -144,7 +174,7 @@ html {
   letter-spacing: 0.02em;
   &:hover {
     --btn-color: #22c55e;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
 }
 .btn-outline {
@@ -152,14 +182,19 @@ html {
   --btn-text: currentcolor;
   &.btn-gray {
     --btn-border: var(--color-gray-300);
-    @variant dark { --btn-border: rgba(255, 255, 255, 0.12); }
+    @variant dark {
+      --btn-border: rgba(255, 255, 255, 0.12);
+    }
     &:hover {
       --btn-bg: rgba(30, 34, 65, 0.4);
       --btn-border: rgba(255, 255, 255, 0.2);
     }
   }
 }
-.btn-danger { --btn-color: var(--color-danger); --btn-text: white; }
+.btn-danger {
+  --btn-color: var(--color-danger);
+  --btn-text: white;
+}
 
 /* Glass panels - exact launcher style */
 .glass {
@@ -188,21 +223,34 @@ html {
   image-rendering: crisp-edges;
 }
 
-
 /* Section divider - subtle */
 .section-border {
   border-color: rgba(255, 255, 255, 0.05);
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.animate-fade-up { animation: fade-up 0.6s ease-out both; }
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
 
 /* Comparison table */
 .comparison-grid {
@@ -211,7 +259,9 @@ html {
   gap: 0;
 }
 @media (max-width: 640px) {
-  .comparison-grid { grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr; }
+  .comparison-grid {
+    grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
+  }
 }
 .comparison-grid .cell {
   padding: 14px 20px;
@@ -221,7 +271,10 @@ html {
   align-items: center;
 }
 @media (max-width: 640px) {
-  .comparison-grid .cell { padding: 10px 12px; font-size: 0.78rem; }
+  .comparison-grid .cell {
+    padding: 10px 12px;
+    font-size: 0.78rem;
+  }
 }
 .comparison-grid .cell-header {
   font-family: "Rajdhani", sans-serif;
@@ -233,7 +286,10 @@ html {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 @media (max-width: 640px) {
-  .comparison-grid .cell-header { padding: 10px 12px; font-size: 0.68rem; }
+  .comparison-grid .cell-header {
+    padding: 10px 12px;
+    font-size: 0.68rem;
+  }
 }
 .comparison-grid .cell-label {
   color: #8890b0;
@@ -255,23 +311,33 @@ html {
   background: rgba(74, 222, 128, 0.03);
 }
 
-
 /* Scroll-triggered fade */
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-delay-5 { transition-delay: 0.5s; }
-
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
+.reveal-delay-5 {
+  transition-delay: 0.5s;
+}
 
 .feature-icon {
   display: inline-flex;
@@ -291,12 +357,13 @@ html {
 
 /* Feature card hover lift */
 .feature-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 .feature-lift:hover {
   transform: translateY(-4px);
 }
-
 
 /* Dialog animations */
 dialog[open] {
@@ -313,19 +380,38 @@ dialog.closing::backdrop {
 }
 
 @keyframes dialog-in {
-  from { opacity: 0; transform: scale(0.95) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 @keyframes dialog-out {
-  from { opacity: 1; transform: scale(1) translateY(0); }
-  to { opacity: 0; transform: scale(0.95) translateY(10px); }
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
 }
 @keyframes backdrop-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes backdrop-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
-

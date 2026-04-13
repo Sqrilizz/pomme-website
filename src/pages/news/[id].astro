@@ -26,14 +26,17 @@ const publishedAt = new Date(post.data.date);
 <Layout title={post.data.title!} description={excerpt} keywords={[]} canonical={`/news/${post.id}`}>
   <section class="section-border section-header-bg border-b">
     <div class="mx-auto max-w-4xl px-6 pt-20 pb-14 lg:pt-28">
-      <a href="/news" class="inline-flex items-center gap-1.5 font-[Rajdhani] text-xs font-bold uppercase tracking-wider text-muted transition-colors hover:text-primary-400">
+      <a
+        href="/news"
+        class="text-muted hover:text-primary-400 inline-flex items-center gap-1.5 font-[Rajdhani] text-xs font-bold tracking-wider uppercase transition-colors"
+      >
         <Icon name="icons/heroicons/chevron-left" class="size-3.5" />
         Back to news
       </a>
-      <h1 class="animate-fade-up mt-6 font-[Rajdhani] text-4xl font-bold uppercase leading-[1.1] tracking-wide lg:text-5xl">
+      <h1 class="animate-fade-up mt-6 font-[Rajdhani] text-4xl leading-[1.1] font-bold tracking-wide uppercase lg:text-5xl">
         {post.data.title}
       </h1>
-      <div class="animate-fade-up delay-100 mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-dim">
+      <div class="animate-fade-up text-dim mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs delay-100">
         <span class="inline-flex items-center gap-1.5">
           <Icon name="icons/lucide/calendar" class="size-3.5" />
           <time datetime={publishedAt.toISOString()}>{formatDateLong(publishedAt)}</time>
@@ -47,41 +50,45 @@ const publishedAt = new Date(post.data.date);
         <span>·</span>
         <span>{words.toLocaleString()} words</span>
       </div>
-      <div class="animate-fade-up delay-200 mt-5 flex items-center gap-3">
-        {post.data.authorAvatar && (
-          <img
-            src={post.data.authorAvatar}
-            alt=""
-            width="36"
-            height="36"
-            class="h-9 w-9 rounded-full border-subtle object-cover"
-            loading="lazy"
-            decoding="async"
-          />
-        )}
-        <span class="font-[Rajdhani] text-sm font-bold uppercase tracking-wider text-muted">{post.data.author}</span>
+      <div class="animate-fade-up mt-5 flex items-center gap-3 delay-200">
+        {
+          post.data.authorAvatar && (
+            <img
+              src={post.data.authorAvatar}
+              alt=""
+              width="36"
+              height="36"
+              class="border-subtle h-9 w-9 rounded-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          )
+        }
+        <span class="text-muted font-[Rajdhani] text-sm font-bold tracking-wider uppercase">{post.data.author}</span>
       </div>
     </div>
   </section>
 
-  {post.data.cover && (
-    <section class="section-border border-b bg-section-dark">
-      <div class="mx-auto max-w-4xl px-6 pt-10 pb-4">
-        <div class="overflow-hidden rounded-[14px] border-subtle">
-          <img
-            src={typeof post.data.cover === "string" ? post.data.cover : post.data.cover.src}
-            alt={typeof post.data.cover === "string" ? "" : (post.data.cover.alt ?? "")}
-            loading="eager"
-            decoding="async"
-            class="aspect-video h-full w-full object-cover"
-          />
+  {
+    post.data.cover && (
+      <section class="section-border bg-section-dark border-b">
+        <div class="mx-auto max-w-4xl px-6 pt-10 pb-4">
+          <div class="border-subtle overflow-hidden rounded-[14px]">
+            <img
+              src={typeof post.data.cover === "string" ? post.data.cover : post.data.cover.src}
+              alt={typeof post.data.cover === "string" ? "" : (post.data.cover.alt ?? "")}
+              loading="eager"
+              decoding="async"
+              class="aspect-video h-full w-full object-cover"
+            />
+          </div>
+          {typeof post.data.cover !== "string" && post.data.cover.credit && (
+            <p class="text-dim mt-2 text-right text-xs">{post.data.cover.credit}</p>
+          )}
         </div>
-        {typeof post.data.cover !== "string" && post.data.cover.credit && (
-          <p class="mt-2 text-right text-xs text-dim">{post.data.cover.credit}</p>
-        )}
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 
   <section class="bg-section-dark">
     <article class="prose dark:prose-invert mx-auto max-w-3xl px-6 py-20">
@@ -91,7 +98,10 @@ const publishedAt = new Date(post.data.date);
 
   <section class="section-border section-alt-bg border-t">
     <div class="mx-auto max-w-4xl px-6 py-14 text-center">
-      <a href="/news" class="inline-flex items-center gap-1.5 font-[Rajdhani] text-sm font-bold uppercase tracking-wider text-primary-400 transition-colors hover:text-primary-500">
+      <a
+        href="/news"
+        class="text-primary-400 hover:text-primary-500 inline-flex items-center gap-1.5 font-[Rajdhani] text-sm font-bold tracking-wider uppercase transition-colors"
+      >
         <Icon name="icons/heroicons/chevron-left" class="size-4" />
         All news
       </a>

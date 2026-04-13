@@ -32,49 +32,61 @@ const pastDonors: string[] = [];
     <div class="mx-auto max-w-[1400px] px-6 pt-20 pb-16 lg:pt-28">
       <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
-          <h1 class="animate-fade-up font-[Rajdhani] text-4xl font-bold uppercase tracking-wide lg:text-5xl">
+          <h1 class="animate-fade-up font-[Rajdhani] text-4xl font-bold tracking-wide uppercase lg:text-5xl">
             Support <span class="text-primary-400">Pomme</span>
           </h1>
-          <p class="animate-fade-up delay-100 mt-4 max-w-xl text-lg text-muted">
+          <p class="animate-fade-up text-muted mt-4 max-w-xl text-lg delay-100">
             Donate to the Pomme project and support our mission to develop a fast, free, and open-source Minecraft client.
           </p>
         </div>
 
-        <div class="animate-fade-up delay-200 grid grid-cols-3 gap-4">
-          {stats.map((s) => (
-            <div class="glass-card px-4 py-5 text-center">
-              <div class="font-[Rajdhani] text-2xl font-bold text-primary-400 lg:text-3xl">{s.value}</div>
-              <div class="mt-1 text-xs font-semibold uppercase tracking-[0.15em] text-muted">{s.label}</div>
-            </div>
-          ))}
+        <div class="animate-fade-up grid grid-cols-3 gap-4 delay-200">
+          {
+            stats.map((s) => (
+              <div class="glass-card px-4 py-5 text-center">
+                <div class="text-primary-400 font-[Rajdhani] text-2xl font-bold lg:text-3xl">{s.value}</div>
+                <div class="text-muted mt-1 text-xs font-semibold tracking-[0.15em] uppercase">{s.label}</div>
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
   </section>
 
-
   <section class="mx-auto max-w-[1400px] px-6 py-24">
     <div class="reveal mb-12 text-center">
       <span class="section-label">Tiers</span>
-      <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold uppercase tracking-wide lg:text-4xl">Choose your <span class="text-primary-400">tier</span></h2>
-      <p class="mt-3 text-muted">Every contribution helps keep Pomme fast, free, and open-source.</p>
+      <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold tracking-wide uppercase lg:text-4xl">
+        Choose your <span class="text-primary-400">tier</span>
+      </h2>
+      <p class="text-muted mt-3">Every contribution helps keep Pomme fast, free, and open-source.</p>
     </div>
 
     <div class="gap-4" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));">
-      {[
-        { tier: "Bronze",   price: 5,   color: "#cd7f32" },
-        { tier: "Silver",   price: 10,  color: "#c0c0c0" },
-        { tier: "Gold",     price: 25,  color: "#ffd700" },
-        { tier: "Platinum", price: 50,  color: "#e5e4e2" },
-        { tier: "Titanium", price: 100, color: "#8a9ba8" },
-        { tier: "Diamond",  price: 250, color: "#b9f2ff" },
-      ].map((t, i) => (
-        <div class={`reveal reveal-delay-${(i % 6) + 1} glass-card flex flex-col items-center justify-center px-5 py-5 text-center transition-transform hover:-translate-y-1`}>
-          <div class="font-[Rajdhani] text-xs font-bold uppercase tracking-[0.1em] leading-none whitespace-nowrap" style={`color: ${t.color};`}>{t.tier}</div>
-          <div class="mt-2 font-[Rajdhani] text-3xl font-bold leading-none text-white">${t.price}</div>
-          <div class="mt-1.5 text-[10px] font-semibold uppercase tracking-wider leading-none text-muted">/ month</div>
-        </div>
-      ))}
+      {
+        [
+          { tier: "Bronze", price: 5, color: "#cd7f32" },
+          { tier: "Silver", price: 10, color: "#c0c0c0" },
+          { tier: "Gold", price: 25, color: "#ffd700" },
+          { tier: "Platinum", price: 50, color: "#e5e4e2" },
+          { tier: "Titanium", price: 100, color: "#8a9ba8" },
+          { tier: "Diamond", price: 250, color: "#b9f2ff" },
+        ].map((t, i) => (
+          <div
+            class={`reveal reveal-delay-${(i % 6) + 1} glass-card flex flex-col items-center justify-center px-5 py-5 text-center transition-transform hover:-translate-y-1`}
+          >
+            <div
+              class="font-[Rajdhani] text-xs leading-none font-bold tracking-[0.1em] whitespace-nowrap uppercase"
+              style={`color: ${t.color};`}
+            >
+              {t.tier}
+            </div>
+            <div class="mt-2 font-[Rajdhani] text-3xl leading-none font-bold text-white">${t.price}</div>
+            <div class="text-muted mt-1.5 text-[10px] leading-none font-semibold tracking-wider uppercase">/ month</div>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -82,47 +94,51 @@ const pastDonors: string[] = [];
     <div class="mx-auto max-w-[1400px] px-6 py-24">
       <div class="reveal mb-12">
         <span class="section-label">Supporters</span>
-        <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold uppercase tracking-wide lg:text-4xl">Pomme Supporters</h2>
-        <p class="mt-3 text-muted">Thanks to everyone backing the project.</p>
+        <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold tracking-wide uppercase lg:text-4xl">Pomme Supporters</h2>
+        <p class="text-muted mt-3">Thanks to everyone backing the project.</p>
       </div>
 
-      {supporters.every((s) => s.names.length === 0) ? (
-        <div class="reveal glass-card px-8 py-12 text-center">
-          <p class="font-[Rajdhani] text-xl font-semibold uppercase tracking-wide">Be the first supporter</p>
-          <p class="mt-2 text-sm text-muted">Your name could go right here.</p>
-        </div>
-      ) : (
-        <div class="space-y-10">
-          {supporters.filter((s) => s.names.length > 0).map((group, i) => (
-            <div class={`reveal reveal-delay-${(i % 6) + 1}`}>
-              <div class="mb-4 flex items-baseline gap-3">
-                <h3 class="font-[Rajdhani] text-xl font-bold uppercase tracking-wide">{group.tier}</h3>
-                <span class="text-sm text-muted">${group.price} / month</span>
-              </div>
-              <div class="flex flex-wrap gap-2">
-                {group.names.map((name) => (
-                  <span class="glass-card rounded-[10px] px-3 py-1.5 text-sm" style="color: #b8bfd9;">
-                    {name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      {
+        supporters.every((s) => s.names.length === 0) ? (
+          <div class="reveal glass-card px-8 py-12 text-center">
+            <p class="font-[Rajdhani] text-xl font-semibold tracking-wide uppercase">Be the first supporter</p>
+            <p class="text-muted mt-2 text-sm">Your name could go right here.</p>
+          </div>
+        ) : (
+          <div class="space-y-10">
+            {supporters
+              .filter((s) => s.names.length > 0)
+              .map((group, i) => (
+                <div class={`reveal reveal-delay-${(i % 6) + 1}`}>
+                  <div class="mb-4 flex items-baseline gap-3">
+                    <h3 class="font-[Rajdhani] text-xl font-bold tracking-wide uppercase">{group.tier}</h3>
+                    <span class="text-muted text-sm">${group.price} / month</span>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    {group.names.map((name) => (
+                      <span class="glass-card rounded-[10px] px-3 py-1.5 text-sm" style="color: #b8bfd9;">
+                        {name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+          </div>
+        )
+      }
     </div>
   </section>
 
-  {pastDonors.length > 0 && (
-    <section class="mx-auto max-w-[1400px] px-6 py-24">
-      <div class="reveal mb-8">
-        <span class="section-label">Past Donors</span>
-        <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold uppercase tracking-wide lg:text-4xl">With gratitude</h2>
-      </div>
-      <p class="reveal text-sm leading-relaxed text-muted">
-        {pastDonors.join(", ")}
-      </p>
-    </section>
-  )}
+  {
+    pastDonors.length > 0 && (
+      <section class="mx-auto max-w-[1400px] px-6 py-24">
+        <div class="reveal mb-8">
+          <span class="section-label">Past Donors</span>
+          <h2 class="mt-3 font-[Rajdhani] text-3xl font-bold tracking-wide uppercase lg:text-4xl">With gratitude</h2>
+        </div>
+        <p class="reveal text-muted text-sm leading-relaxed">{pastDonors.join(", ")}</p>
+      </section>
+    )
+  }
   <RevealObserver />
 </Layout>

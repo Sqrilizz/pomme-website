@@ -31,92 +31,84 @@ const postsWithMeta = posts.map((p) => {
   <section class="section-border section-header-bg border-b">
     <div class="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-6 pt-20 pb-16 lg:pt-28">
       <div>
-        <h1 class="animate-fade-up font-[Rajdhani] text-4xl font-bold uppercase tracking-wide lg:text-5xl">
+        <h1 class="animate-fade-up font-[Rajdhani] text-4xl font-bold tracking-wide uppercase lg:text-5xl">
           <span class="text-primary-400">News</span>
         </h1>
-        <p class="animate-fade-up delay-100 mt-4 text-lg text-muted">
-          Updates, announcements, and development logs.
-        </p>
+        <p class="animate-fade-up text-muted mt-4 text-lg delay-100">Updates, announcements, and development logs.</p>
       </div>
-      <IconButton className="animate-fade-up delay-100 shrink-0" label="RSS feed" icon="icons/lucide/rss" href="/news/rss.xml" />
+      <IconButton className="animate-fade-up shrink-0 delay-100" label="RSS feed" icon="icons/lucide/rss" href="/news/rss.xml" />
     </div>
   </section>
 
   <section class="mx-auto max-w-[1400px] px-6 py-24">
-    {postsWithMeta.length > 0 ? (
-      <div class="flex flex-col gap-4">
-        {postsWithMeta.map((entry, idx) => {
-          const coverSrc = entry.data.cover
-            ? typeof entry.data.cover === "string"
-              ? entry.data.cover
-              : entry.data.cover.src
-            : null;
-          const coverAlt = entry.data.cover && typeof entry.data.cover !== "string" ? (entry.data.cover.alt ?? "") : "";
-          return (
-            <a
-              href={`/news/${entry.id}`}
-              class={`reveal reveal-delay-${Math.min(idx + 1, 4)} glass feature-lift group block overflow-hidden`}
-            >
-              <div class="flex flex-col gap-0 md:flex-row">
-                {coverSrc && (
-                  <div class="relative md:w-64 md:shrink-0">
-                    <img
-                      src={coverSrc}
-                      alt={coverAlt}
-                      loading="lazy"
-                      decoding="async"
-                      class="aspect-video h-full w-full object-cover md:aspect-auto"
-                    />
-                  </div>
-                )}
-                <div class="flex flex-1 flex-col gap-3 p-8">
-                  <div class="flex flex-wrap items-center gap-3">
-                    <h2 class="font-[Rajdhani] text-xl font-bold uppercase tracking-wide transition-colors group-hover:text-primary-400">
-                      {entry.data.title}
-                    </h2>
-                    {idx === 0 && entry.isRecent && (
-                      <span class="accent-badge shrink-0 rounded-full px-2.5 py-0.5 font-[Rajdhani] text-xs font-bold uppercase tracking-wider text-primary-400">
-                        Latest
+    {
+      postsWithMeta.length > 0 ? (
+        <div class="flex flex-col gap-4">
+          {postsWithMeta.map((entry, idx) => {
+            const coverSrc = entry.data.cover ? (typeof entry.data.cover === "string" ? entry.data.cover : entry.data.cover.src) : null;
+            const coverAlt = entry.data.cover && typeof entry.data.cover !== "string" ? (entry.data.cover.alt ?? "") : "";
+            return (
+              <a
+                href={`/news/${entry.id}`}
+                class={`reveal reveal-delay-${Math.min(idx + 1, 4)} glass feature-lift group block overflow-hidden`}
+              >
+                <div class="flex flex-col gap-0 md:flex-row">
+                  {coverSrc && (
+                    <div class="relative md:w-64 md:shrink-0">
+                      <img
+                        src={coverSrc}
+                        alt={coverAlt}
+                        loading="lazy"
+                        decoding="async"
+                        class="aspect-video h-full w-full object-cover md:aspect-auto"
+                      />
+                    </div>
+                  )}
+                  <div class="flex flex-1 flex-col gap-3 p-8">
+                    <div class="flex flex-wrap items-center gap-3">
+                      <h2 class="group-hover:text-primary-400 font-[Rajdhani] text-xl font-bold tracking-wide uppercase transition-colors">
+                        {entry.data.title}
+                      </h2>
+                      {idx === 0 && entry.isRecent && (
+                        <span class="accent-badge text-primary-400 shrink-0 rounded-full px-2.5 py-0.5 font-[Rajdhani] text-xs font-bold tracking-wider uppercase">
+                          Latest
+                        </span>
+                      )}
+                    </div>
+
+                    <div class="text-dim flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+                      <span class="inline-flex items-center gap-1.5">
+                        <Icon name="icons/lucide/calendar" class="size-3.5" />
+                        {formatDateLong(entry.publishedAt)}
                       </span>
-                    )}
-                  </div>
+                      <span>·</span>
+                      <span class="inline-flex items-center gap-1.5">
+                        <Icon name="icons/lucide/clock" class="size-3.5" />
+                        {entry.mins} min read
+                      </span>
+                      {entry.data.author && (
+                        <>
+                          <span>·</span>
+                          <span class="font-[Rajdhani] font-bold tracking-wider uppercase">{entry.data.author}</span>
+                        </>
+                      )}
+                    </div>
 
-                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-dim">
-                    <span class="inline-flex items-center gap-1.5">
-                      <Icon name="icons/lucide/calendar" class="size-3.5" />
-                      {formatDateLong(entry.publishedAt)}
-                    </span>
-                    <span>·</span>
-                    <span class="inline-flex items-center gap-1.5">
-                      <Icon name="icons/lucide/clock" class="size-3.5" />
-                      {entry.mins} min read
-                    </span>
-                    {entry.data.author && (
-                      <>
-                        <span>·</span>
-                        <span class="font-[Rajdhani] font-bold uppercase tracking-wider">{entry.data.author}</span>
-                      </>
-                    )}
+                    <p class="text-muted line-clamp-3 text-sm leading-relaxed">{entry.excerpt}</p>
                   </div>
-
-                  <p class="line-clamp-3 text-sm leading-relaxed text-muted">
-                    {entry.excerpt}
-                  </p>
                 </div>
-              </div>
-            </a>
-          );
-        })}
-      </div>
-    ) : (
-      <div class="glass flex flex-col items-center py-20 text-center">
-        <Icon name="icons/lucide/rss" class="mb-4 size-10 fill-primary-400 opacity-60" />
-        <h2 class="font-[Rajdhani] text-xl font-bold uppercase tracking-wide">No posts yet</h2>
-        <p class="mt-2 max-w-sm text-sm text-muted">
-          Check back soon for development updates and announcements.
-        </p>
-      </div>
-    )}
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="glass flex flex-col items-center py-20 text-center">
+          <Icon name="icons/lucide/rss" class="fill-primary-400 mb-4 size-10 opacity-60" />
+          <h2 class="font-[Rajdhani] text-xl font-bold tracking-wide uppercase">No posts yet</h2>
+          <p class="text-muted mt-2 max-w-sm text-sm">Check back soon for development updates and announcements.</p>
+        </div>
+      )
+    }
   </section>
   <RevealObserver />
 </Layout>
