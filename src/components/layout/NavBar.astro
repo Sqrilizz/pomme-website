@@ -83,12 +83,7 @@ const sheetLinkClass =
       {
         links.map(({ href, label, external }) => (
           <li>
-            <a
-              href={href}
-              target={external ? "_blank" : undefined}
-              rel={external ? "noreferrer" : undefined}
-              class={sheetLinkClass}
-            >
+            <a href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined} class={sheetLinkClass}>
               {label}
               {external && <Icon name="icons/heroicons/arrow-top-right-on-square" class="ml-1.5 size-3.5 opacity-40" />}
             </a>
