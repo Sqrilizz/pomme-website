@@ -416,3 +416,41 @@ dialog.closing::backdrop {
     opacity: 0;
   }
 }
+
+dialog#nav-sheet {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: none;
+  max-height: 100dvh;
+  height: 100dvh;
+  width: min(320px, 85vw);
+  inset: 0 auto 0 0;
+  color: #e4e6f4;
+}
+dialog#nav-sheet[open] {
+  animation: sheet-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+dialog#nav-sheet.closing {
+  animation: sheet-out 0.25s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes sheet-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}

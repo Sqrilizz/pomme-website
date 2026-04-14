@@ -3,6 +3,17 @@ import { Icon } from "astro-icon/components";
 
 import NavLink from "@/components/layout/NavLink.astro";
 import IconButton from "@/components/IconButton.astro";
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/downloads", label: "Downloads" },
+  { href: "https://docs.pomme.rs/", label: "Docs", external: true },
+  { href: "/news", label: "News" },
+  { href: "/community", label: "Community" },
+];
+
+const sheetLinkClass =
+  "hover:text-primary-400 flex items-center px-5 py-4 font-[Rajdhani] text-base font-semibold tracking-wide uppercase transition-colors hover:bg-white/5";
 ---
 
 <nav
@@ -13,7 +24,8 @@ import IconButton from "@/components/IconButton.astro";
   <div class="mx-auto flex max-w-[1400px] flex-row items-center gap-3 px-6 py-3">
     <button
       id="nav-toggle"
-      title="Toggle nav"
+      title="Open menu"
+      aria-label="Open menu"
       class="mr-2 rounded-[10px] p-1.5 md:hidden"
       style="border: 1px solid rgba(255,255,255,0.1); background: rgba(30,34,65,0.4);"
     >
@@ -27,19 +39,19 @@ import IconButton from "@/components/IconButton.astro";
 
     <div class="hidden h-4 w-px sm:block" style="background: rgba(255,255,255,0.07);"></div>
 
-    <div
-      id="nav-menu"
-      class="absolute top-full right-0 left-0 flex w-full flex-col gap-1 p-4 max-md:hidden! md:relative md:flex md:w-auto md:flex-row md:items-center md:gap-0 md:bg-transparent md:p-0"
-      style="background: rgba(8,10,22,0.95); backdrop-filter: blur(24px);"
-    >
-      <NavLink href="/">Home</NavLink>
-      <NavLink href="/downloads">Downloads</NavLink>
-      <NavLink href="https://docs.pomme.rs/" target="_blank" className="inline-flex items-center">
-        Docs
-        <Icon name="icons/heroicons/arrow-top-right-on-square" class="ml-1 size-3 opacity-30" />
-      </NavLink>
-      <NavLink href="/news">News</NavLink>
-      <NavLink href="/community">Community</NavLink>
+    <div id="nav-menu" class="hidden items-center md:flex">
+      {
+        links.map(({ href, label, external }) =>
+          external ? (
+            <NavLink href={href} target="_blank" className="inline-flex items-center">
+              {label}
+              <Icon name="icons/heroicons/arrow-top-right-on-square" class="ml-1 size-3 opacity-30" />
+            </NavLink>
+          ) : (
+            <NavLink href={href}>{label}</NavLink>
+          )
+        )
+      }
     </div>
 
     <div class="grow"></div>
@@ -49,16 +61,98 @@ import IconButton from "@/components/IconButton.astro";
   </div>
 </nav>
 
+<dialog id="nav-sheet" class="glass-heavy text-white md:hidden" aria-label="Site navigation">
+  <div class="flex h-full flex-col">
+    <div class="section-border flex items-center justify-between border-b px-5 py-4">
+      <a href="/" class="flex items-center gap-2.5">
+        <img src="/assets/brand/pomme.png" alt="Pomme" class="pixel-render block h-7" />
+        <span class="font-[Rajdhani] text-lg font-bold tracking-wider uppercase">Pomme</span>
+      </a>
+      <button
+        id="nav-sheet-close"
+        title="Close menu"
+        aria-label="Close menu"
+        class="rounded-[10px] p-1.5"
+        style="border: 1px solid rgba(255,255,255,0.1); background: rgba(30,34,65,0.4);"
+      >
+        <Icon name="icons/heroicons/x-mark" class="size-5 fill-gray-400" />
+      </button>
+    </div>
+
+    <ul class="flex flex-col py-2" data-nav-sheet-links>
+      {
+        links.map(({ href, label, external }) => (
+          <li>
+            <a
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noreferrer" : undefined}
+              class={sheetLinkClass}
+            >
+              {label}
+              {external && <Icon name="icons/heroicons/arrow-top-right-on-square" class="ml-1.5 size-3.5 opacity-40" />}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="section-border mt-auto flex items-center gap-2 border-t px-4 py-4">
+      <IconButton icon="icons/fontawesome/discord-brands" label="Discord" href="https://discord.gg/ucBA55bHPR" external />
+      <IconButton icon="icons/fontawesome/github-brands" label="GitHub" href="https://github.com/PommeMC/Pomme-Client" external />
+    </div>
+  </div>
+</dialog>
+
 <script>
-  document.getElementById("nav-toggle")?.addEventListener("click", () => {
-    document.getElementById("nav-menu")?.classList?.toggle("max-md:hidden!");
+  const sheet = document.getElementById("nav-sheet") as HTMLDialogElement | null;
+  const toggle = document.getElementById("nav-toggle");
+  const closeBtn = document.getElementById("nav-sheet-close");
+  const wrapper = document.getElementById("nav-wrapper");
+
+  const setBodyLock = (locked: boolean) => document.body.classList.toggle("overflow-hidden", locked);
+
+  const hardClose = () => {
+    if (!sheet?.open) return;
+    sheet.classList.remove("closing");
+    sheet.close();
+    setBodyLock(false);
+  };
+
+  const animatedClose = () => {
+    if (!sheet?.open) return;
+    sheet.classList.add("closing");
+    const onEnd = () => {
+      sheet.removeEventListener("animationend", onEnd);
+      hardClose();
+    };
+    sheet.addEventListener("animationend", onEnd);
+  };
+
+  toggle?.addEventListener("click", () => {
+    sheet?.showModal();
+    setBodyLock(true);
   });
+  closeBtn?.addEventListener("click", animatedClose);
+
+  sheet?.addEventListener("click", (event) => {
+    if (event.target === sheet) animatedClose();
+  });
+
+  sheet?.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    animatedClose();
+  });
+
+  sheet?.querySelectorAll("[data-nav-sheet-links] a").forEach((link) => {
+    link.addEventListener("click", hardClose);
+  });
+
+  window.matchMedia("(min-width: 768px)").addEventListener("change", (e) => {
+    if (e.matches) hardClose();
+  });
+
   window.addEventListener("scroll", () => {
-    const wrapper = document.getElementById("nav-wrapper");
-    if (window.scrollY > 10) {
-      wrapper?.style.setProperty("border-bottom", "1px solid rgba(255,255,255,0.05)");
-    } else {
-      wrapper?.style.setProperty("border-bottom", "none");
-    }
+    wrapper?.style.setProperty("border-bottom", window.scrollY > 10 ? "1px solid rgba(255,255,255,0.05)" : "none");
   });
 </script>
