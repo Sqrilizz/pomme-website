@@ -46,7 +46,8 @@
 }
 
 html {
-  @apply bg-background-light-10 dark:bg-background-dark-90 scroll-smooth dark:text-[#e4e6f4];
+  @apply bg-background-dark-90 scroll-smooth text-[#e4e6f4];
+  color-scheme: dark;
   -webkit-tap-highlight-color: transparent;
 }
 
