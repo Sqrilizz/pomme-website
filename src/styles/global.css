@@ -201,8 +201,8 @@ button {
 .glass {
   background: var(--glass);
   border: 1px solid var(--border);
-  backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
   border-radius: 14px;
   transition: all 0.25s ease;
   &:hover {
@@ -214,8 +214,8 @@ button {
 .glass-heavy {
   background: var(--glass-heavy);
   border: 1px solid var(--border);
-  backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
   border-radius: 14px;
 }
 
