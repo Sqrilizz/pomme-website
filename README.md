@@ -1,4 +1,4 @@
-# Pomme Website ![License](https://img.shields.io/github/license/PommeMC/website)
+# Pomme Website ![License](https://img.shields.io/github/license/PommeMC/pomme-website)
 
 The official [Pomme](https://pomme.rs) website — built with **Astro 5**, powered by **Bun**, and styled using **Tailwind CSS v4**.
 
@@ -17,8 +17,8 @@ How to get the project running on your local machine for development.
 1. Clone the repository. If you plan to make changes, create a fork first!
 
    ```bash
-   git clone https://github.com/PommeMC/website.git
-   cd website
+   git clone https://github.com/PommeMC/pomme-website.git
+   cd pomme-website
    ```
 
 2. Install all required dependencies.
@@ -101,4 +101,4 @@ Submit a pull request targeting the main branch.
 ## License
 
 The supporting code is
-[GPL-3.0](https://github.com/PommeMC/website/blob/main/LICENSE) licensed.
+[GPL-3.0](https://github.com/PommeMC/pomme-website/blob/master/LICENSE) licensed.
