@@ -10,7 +10,7 @@ const posts = defineCollection({
   schema: rssSchema.extend({
     date: z.coerce.date(),
     author: z.string().default(DEFAULT_AUTHOR),
-    authorAvatar: z.string().url().default(DEFAULT_AVATAR),
+    authorAvatar: z.string().default(DEFAULT_AVATAR),
     cover: z
       .object({
         src: z.string().url(),
