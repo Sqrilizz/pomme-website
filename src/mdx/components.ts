@@ -1,4 +1,4 @@
-// @ts-nocheck // fix this properly later maybe :D
+// @ts-nocheck
 import Contributors from "@/components/news/Contributors.astro";
 import DownloadButton from "@/components/news/DownloadButton.astro";
 import MandatoryBackups from "@/components/news/MandatoryBackups.astro";

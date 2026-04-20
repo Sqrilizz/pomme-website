@@ -1,4 +1,6 @@
 ---
+import Brand from "@/components/layout/Brand.astro";
+
 const hash = import.meta.env.GIT_COMMIT_HASH;
 const year = new Date().getFullYear();
 
@@ -23,10 +25,7 @@ const links = {
   <div class="mx-auto max-w-[1400px] px-6">
     <div class="grid gap-10 text-sm sm:grid-cols-2 md:grid-cols-4">
       <div>
-        <a href="/" class="flex items-center gap-2">
-          <img src="/assets/brand/pomme.png" alt="Pomme" class="pixel-render h-7" />
-          <span class="font-[Rajdhani] text-lg font-bold tracking-wider uppercase">Pomme</span>
-        </a>
+        <Brand />
         <p class="text-dim mt-3 leading-relaxed">A high-performance Minecraft client written in Rust.</p>
       </div>
 

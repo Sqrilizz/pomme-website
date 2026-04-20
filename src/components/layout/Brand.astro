@@ -1,0 +1,13 @@
+---
+interface Props {
+  href?: string;
+  class?: string;
+}
+
+const { href = "/", class: className } = Astro.props;
+---
+
+<a href={href} class:list={["flex items-center gap-2.5", className]}>
+  <img src="/assets/brand/pomme.png" alt="Pomme" class="pixel-render block h-7" />
+  <span class="font-[Rajdhani] text-lg font-bold tracking-wider uppercase">Pomme</span>
+</a>

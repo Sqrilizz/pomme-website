@@ -2,27 +2,34 @@
 import { clsx } from "clsx";
 
 type Variant = "outlined" | "filled" | "filled-danger";
+type Size = "default" | "lg";
 
 interface Props {
   variant: Variant;
+  size?: Size;
   dense?: boolean;
   href: string;
   external?: boolean;
   className?: string;
 }
 
-const { variant, dense, href, external, className } = Astro.props;
+const { variant, size = "default", dense, href, external, className } = Astro.props;
 
 const variantClass: Record<Variant, string> = {
   outlined: "btn-outline btn-gray",
   filled: "btn-primary",
   "filled-danger": "btn-danger",
 };
+
+const sizeClass: Record<Size, string> = {
+  default: clsx("font-medium px-6 py-1.5 rounded-sm", dense ? "text-sm" : "text-md"),
+  lg: "rounded-[10px] px-8 py-2.5 font-[Rajdhani] text-base font-semibold tracking-wider uppercase",
+};
 ---
 
 <a
   role="button"
-  class={clsx("btn font-medium px-6 py-1.5 rounded-sm", dense ? "text-sm" : "text-md", variantClass[variant], className)}
+  class={clsx("btn", sizeClass[size], variantClass[variant], className)}
   rel="noreferrer"
   target={external ? "_blank" : "_self"}
   href={href}
