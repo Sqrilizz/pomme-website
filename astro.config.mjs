@@ -25,11 +25,11 @@ export default defineConfig({
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**.githubusercontent.com",
+        hostname: "avatars.githubusercontent.com",
       },
       {
         protocol: "https",
-        hostname: "**.opencollective.com",
+        hostname: "images.opencollective.com",
       },
     ],
   },

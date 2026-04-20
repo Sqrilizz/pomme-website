@@ -10,17 +10,21 @@ export const prerender = true;
 type GhAsset = { name: string; size: number; browser_download_url: string };
 type GhRelease = { tag_name: string; published_at: string; assets: GhAsset[]; html_url: string };
 
+const ghToken = process.env.GITHUB_TOKEN;
+const ghHeaders: Record<string, string> = { "User-Agent": "pomme-website-build" };
+if (ghToken) ghHeaders.Authorization = `Bearer ${ghToken}`;
+
 let release: GhRelease | null = null;
 let checksums: Record<string, string> = {};
 try {
   const res = await fetch("https://api.github.com/repos/PommeMC/Pomme-Client/releases/latest", {
-    headers: { "User-Agent": "pomme-website-build", Accept: "application/vnd.github+json" },
+    headers: { ...ghHeaders, Accept: "application/vnd.github+json" },
   });
   if (res.ok) {
     release = (await res.json()) as GhRelease;
     const sumsAsset = release.assets.find((a) => /^(sha256sums|checksums)(\.txt)?$/i.test(a.name));
     if (sumsAsset) {
-      const sumsRes = await fetch(sumsAsset.browser_download_url, { headers: { "User-Agent": "pomme-website-build" } });
+      const sumsRes = await fetch(sumsAsset.browser_download_url, { headers: ghHeaders });
       if (sumsRes.ok) {
         const text = await sumsRes.text();
         for (const line of text.split("\n")) {
