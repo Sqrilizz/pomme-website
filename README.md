@@ -10,7 +10,7 @@ Live preview: **[https://sqrilizz.github.io/pomme-website/](https://sqrilizz.git
 ## Why rewrite?
 The original site was an Astro/Node/Bun setup with heavy dependencies. This remake replaces the entire pipeline with a clean, standalone Rust static site generator:
 
-- **Zero npm / Node / Bun**: compiled and generated entirely in Rust with `cargo run`.
+- **Zero npm / Node / Bun (cuz why not XD)**: compiled and generated entirely in Rust with `cargo run`.
 - **In-engine gameplay capture**: 60 FPS optical flow interpolated footage directly from native client builds.
 - **Vanilla Parity matrix**: tracks mobs, blocks, redstone, and rendering against upstream client test scripts.
 - **Cold start benchmark**: terminal-style race comparison showing Pomme's 1.4s launch time.
