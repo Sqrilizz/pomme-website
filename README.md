@@ -8,6 +8,11 @@ Community redesign of the [pomme.rs](https://pomme.rs) website for [Pomme](https
 Live preview: **[https://sqrilizz.github.io/pomme-website/](https://sqrilizz.github.io/pomme-website/)**
 
 ## Why rewrite?
+
+> ![EVERYTHING RUST](assets/images/purdze_endorsement.png)
+>
+> *"EVERYTHING RUST"* — **[Purdze](https://github.com/Purdze)**
+
 The original site was an Astro/Node/Bun setup with heavy dependencies. This remake replaces the entire pipeline with a clean, standalone Rust static site generator:
 
 - **Zero npm / Node / Bun (cuz why not XD)**: compiled and generated entirely in Rust with `cargo run`.
