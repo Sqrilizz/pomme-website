@@ -1,0 +1,1433 @@
+{
+  "meta": {
+    "commit": "df65652",
+    "commit_title": "split the protocol translator by version and pick its rewrites from dispatch tables (#891)",
+    "commit_date": "2026-11-07",
+    "tag": "client-v0.2.10+26.2",
+    "updated_at": "2026-11-09",
+    "test_count": 88
+  },
+  "items": [
+    {
+      "name": "Allay",
+      "category": "entities",
+      "status": "Planned",
+      "tag": "pomme-client::entity",
+      "description": "Item pickup and following note blocks with vibration resonance."
+    },
+    {
+      "name": "Armadillo",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/armadillo.toml",
+      "description": "Scute dropping with brushes, defense roll on threat detection, and wolf armor crafting."
+    },
+    {
+      "name": "Axolotl",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/axolotl.toml",
+      "description": "5 color variants (including blue), play dead regeneration mechanic, and bucket pickup."
+    },
+    {
+      "name": "Bat",
+      "category": "entities",
+      "status": "Planned",
+      "tag": "pomme-client::entity",
+      "description": "Ceiling hanging sleep state and ambient dark cave flight pathing."
+    },
+    {
+      "name": "Bee",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/bee.toml",
+      "description": "Flower pollination, hive navigation, honey crop acceleration, and stinging anger."
+    },
+    {
+      "name": "Camel",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Two-player saddle riding, horizontal dash over barriers, and sitting animation."
+    },
+    {
+      "name": "Cat",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Stray cat taming, 11 collar colors, creeper scaring, and morning gift delivery."
+    },
+    {
+      "name": "Chicken",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/passive_mobs.toml",
+      "description": "Egg laying intervals, seed breeding, baby chick scaling, and slow flap falling."
+    },
+    {
+      "name": "Cod",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Water school schooling behavior, bucket capture, and oceanic swimming."
+    },
+    {
+      "name": "Cow",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/passive_mobs.toml",
+      "description": "Wheat breeding, milk bucket collection, leather and beef drops on slaughter."
+    },
+    {
+      "name": "Dolphin",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/dolphin.toml",
+      "description": "Dolphins Grace swim aura, item playing tossing, and shipwreck leading."
+    },
+    {
+      "name": "Donkey & Mule",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Saddle riding, chest attachment for 15-slot mobile storage, and breeding."
+    },
+    {
+      "name": "Fox",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/fox.toml",
+      "description": "Red and snow biomes, mouth item holding, berry harvesting, and high pouncing."
+    },
+    {
+      "name": "Frog & Tadpole",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Temperate/warm/cold variants, tongue attack eating small slimes, froglight generation."
+    },
+    {
+      "name": "Glow Squid",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Luminescent glow ink sac drops and dynamic underwater light shader emission."
+    },
+    {
+      "name": "Goat",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/goat.toml",
+      "description": "High mountain jumping, ramming knockback attack, screaming variants, and goat horn drops."
+    },
+    {
+      "name": "Horse",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Taming buck mechanics, speed/jump/health stat rolls, saddle riding and armor."
+    },
+    {
+      "name": "Llama & Trader Llama",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/llama.toml",
+      "description": "Carpet patterns, spit defense attack, caravan trailing, and chest storage."
+    },
+    {
+      "name": "Mooshroom",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/mooshroom.toml",
+      "description": "Red and brown variants, bowl stew collection, and shears converting to normal cows."
+    },
+    {
+      "name": "Ocelot",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Jungle sprint behavior, raw cod feeding trust, and chicken hunting."
+    },
+    {
+      "name": "Panda",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/panda.toml",
+      "description": "7 personality alleles (lazy, worried, playful, aggressive, weak, brown), sneeze and rolling."
+    },
+    {
+      "name": "Parrot",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/parrot.toml",
+      "description": "5 plumage colorations, shoulder perching, jukebox dancing, and mob sound mimicry."
+    },
+    {
+      "name": "Pig",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/passive_mobs.toml",
+      "description": "Carrot breeding, saddle riding with carrot on a stick steering, and lightning zombie pig conversion."
+    },
+    {
+      "name": "Polar Bear",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/polar_bear.toml",
+      "description": "Cub protection aggression, hind-leg rearing animation, and cold biome spawning."
+    },
+    {
+      "name": "Pufferfish",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "3 inflation stages, proximity poison sting, and water bucket catching."
+    },
+    {
+      "name": "Rabbit",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "6 coat variations, carrot eating crop destruction, and rare Killer Bunny state."
+    },
+    {
+      "name": "Salmon",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Small, medium and large size variants, river upstream swimming, and schooling."
+    },
+    {
+      "name": "Sheep",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/passive_mobs.toml",
+      "description": "16 dye wool colors, grass grazing wool regrowth, shears wool collection, and baby breeding."
+    },
+    {
+      "name": "Sniffer",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/sniffer.toml",
+      "description": "Egg hatching from warm ocean ruins, ground sniffing, and torchflower/pitcher pod digging."
+    },
+    {
+      "name": "Snow Golem",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Snow trail creation, snowball throwing at hostiles, and shears pumpkin head removal."
+    },
+    {
+      "name": "Squid",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Tentacle swimming animation, ink cloud defense, and water biome spawning."
+    },
+    {
+      "name": "Strider",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Nether lava ocean walking, warped fungus on a stick steering, and cold shivering out of lava."
+    },
+    {
+      "name": "Tropical Fish",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "3,584 procedurally generated shape, pattern and color combinations."
+    },
+    {
+      "name": "Turtle",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/turtle.toml",
+      "description": "Beach home memory, egg laying on sand, zombie egg stomping defense, and scute dropping."
+    },
+    {
+      "name": "Villager",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/villagers.toml",
+      "description": "15 professions, workstation claiming, restock schedules, badge levels, and gossip."
+    },
+    {
+      "name": "Wandering Trader",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Periodic spawn with leashed llamas, invisibility potion drinking at dusk, exotic trades."
+    },
+    {
+      "name": "Blaze",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Nether fortress spawning, rod rotation animation, and 3-fireball burst volleys."
+    },
+    {
+      "name": "Bogged",
+      "category": "entities",
+      "status": "Planned",
+      "tag": "pomme-client::entity",
+      "description": "Swamp and Trial Chamber mossy skeleton variant shooting poison arrows."
+    },
+    {
+      "name": "Breeze",
+      "category": "entities",
+      "status": "Planned",
+      "tag": "pomme-client::entity",
+      "description": "Trial Chamber wind mob, high jump leap physics, and wind charge deflection."
+    },
+    {
+      "name": "Cave Spider",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Abandoned mineshaft spawner mob, cobweb movement immunity, and poison bite."
+    },
+    {
+      "name": "Creeper",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Silent approach, 1.5s fuse swelling and flash animation, cat repulsion, and charged state."
+    },
+    {
+      "name": "Drowned",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Underwater swimming animation, trident ranged throws, and nautilus shell drops."
+    },
+    {
+      "name": "Elder Guardian",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Ocean Monument boss, ghost curse particle, Mining Fatigue III infliction, and eye tracking."
+    },
+    {
+      "name": "Ender Dragon",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Multi-part articulated bounding boxes, perch phase, end crystal beam healing, and acid breath."
+    },
+    {
+      "name": "Enderman",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Crosshair stare aggro, open jaw animation, water damage, block pickup, and teleportation."
+    },
+    {
+      "name": "Endermite",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Ender pearl teleport spawn chance, 2-minute lifespan, and Enderman hostility target."
+    },
+    {
+      "name": "Evoker",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Woodland Mansion/Raid spellcaster, fang ground traps, vex summoning, and wool dyeing."
+    },
+    {
+      "name": "Ghast",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Nether flight floating, cry audio, red-face charging, and explosive fireball shots."
+    },
+    {
+      "name": "Guardian",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Ocean Monument defense, laser beam charge attack, spike thorn reflection, and flop physics."
+    },
+    {
+      "name": "Hoglin & Zoglin",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Crimson forest boar, head toss knockback attack, warped fungus fear, and Overworld decay."
+    },
+    {
+      "name": "Husk",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Desert zombie variant, sunlight immunity, and hunger infliction on melee hit."
+    },
+    {
+      "name": "Illusioner",
+      "category": "entities",
+      "status": "Planned",
+      "tag": "pomme-client::entity",
+      "description": "Unused illager spellcaster, blindness cast, and 4 duplicate mirror illusions."
+    },
+    {
+      "name": "Iron Golem",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Village spawn gossip calculation, poppy holding, head toss toss attack, and iron crack stages."
+    },
+    {
+      "name": "Magma Cube",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Nether lava hopping, accordion spring animation, and 3-tier size splitting."
+    },
+    {
+      "name": "Phantom",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Insomnia sky swoop dive attack, membrane dropping, and daylight combustion."
+    },
+    {
+      "name": "Piglin & Piglin Brute",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Gold armor appeasement, gold ingot bartering, crossbow volley, and bastion guarding."
+    },
+    {
+      "name": "Pillager & Ravager",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Outpost and raid patrols, crossbow charging, bad omen banner bearer, and ravager stun."
+    },
+    {
+      "name": "Shulker",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "End City block shell peek animation, shell defense armor boost, and homing levitation bullets."
+    },
+    {
+      "name": "Silverfish",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Infested stone burrowing, swarm calling on damage, and stronghold spawner guard."
+    },
+    {
+      "name": "Skeleton & Stray",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Ranged bow draw with strafing pathing, sun burning, and stray slowness tipped arrows."
+    },
+    {
+      "name": "Slime",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Slime chunk and swamp spawning, squish jump animation, and 3-generation splitting."
+    },
+    {
+      "name": "Spider",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Vertical wall climbing, pounce leap attack, daytime neutral state, and string drops."
+    },
+    {
+      "name": "Vex",
+      "category": "entities",
+      "status": "Planned",
+      "tag": "pomme-client::entity",
+      "description": "Solid block clipping noclip flight, red-charging sword dash, and limited summon lifespan."
+    },
+    {
+      "name": "Vindicator",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Crossed-arm walk, high melee axe sprint, raid formation, and Johnny Easter egg."
+    },
+    {
+      "name": "Warden",
+      "category": "entities",
+      "status": "Planned",
+      "tag": "pomme-client::entity",
+      "description": "Deep Dark sculk vibration listening, sniffing detection, sonic boom ranged attack, and dig emerge."
+    },
+    {
+      "name": "Witch",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Swamp hut spawning, splash potion throwing, self-healing with health potions, lightning strike."
+    },
+    {
+      "name": "Wither",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Soul sand 4-skull summoning, 3-target tracking, black/blue skull projectiles, and armor shield."
+    },
+    {
+      "name": "Wither Skeleton",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Nether fortress spawn, stone sword sprint, wither effect infliction, and skull drop chance."
+    },
+    {
+      "name": "Wolf",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Bone taming, 8 biome coat variations, tail health indicator, collar dyeing, and wolf armor."
+    },
+    {
+      "name": "Zombie & Zombie Villager",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Target tracking, iron door banging, villager conversion, and golden apple/weakness curing."
+    },
+    {
+      "name": "Zombified Piglin",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Neutral group swarm anger trigger, golden sword melee, and Nether portal spawning."
+    },
+    {
+      "name": "Boat & Chest Boat",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/boat.toml",
+      "description": "Water paddle strokes, blue ice friction acceleration, and passenger offset sync."
+    },
+    {
+      "name": "Minecart (All Types)",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Standard rideable, chest, furnace, hopper, TNT, and spawner minecart rail kinematics."
+    },
+    {
+      "name": "Armor Stand",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Equipment display, smooth pose interpolation, smooth gravity, and right-click equipping."
+    },
+    {
+      "name": "Item Frame & Glow Frame",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Wall placement, item 45-degree rotation, comparator redstone reading, and glow emission."
+    },
+    {
+      "name": "Painting",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Multi-block grid canvas snapping, motif cycling, and wall detachment on block break."
+    },
+    {
+      "name": "Display Entities (1.19.4+)",
+      "category": "entities",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Block Display, Item Display and Text Display with custom transformation matrices."
+    },
+    {
+      "name": "End Crystal",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "pomme-client::entity",
+      "description": "Spinning inner cube animation, bedrock base beam emission, and explosive destruction."
+    },
+    {
+      "name": "Piston & Sticky Piston",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/pistons.toml",
+      "description": "Client-side moving_piston simulation, 12-block push limits, block popping, retraction checks."
+    },
+    {
+      "name": "Voxel Collision Shapes",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/collision_shapes.toml",
+      "description": "Accurate non-cube voxel collision AABBs for fences, stairs, slabs, cauldrons, lecterns."
+    },
+    {
+      "name": "Redstone Wire & Attenuation",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Signal decay 15 to 0, directional cross/dot wire states, and diagonal connection logic."
+    },
+    {
+      "name": "Redstone Torch",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Inversion logic, 1-tick delay, vertical power transmission, and burnout protection."
+    },
+    {
+      "name": "Redstone Repeater",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-protocol::block",
+      "description": "1 to 4 redstone tick delays, diode one-way signal isolation, and side latching lock state."
+    },
+    {
+      "name": "Redstone Comparator",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-protocol::block",
+      "description": "Comparison mode, subtraction mode, and container fill signal strength evaluation."
+    },
+    {
+      "name": "Observer",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-protocol::block",
+      "description": "Block state update detection face and 1-tick strong redstone pulse rear output."
+    },
+    {
+      "name": "Crafter (1.21 Auto-Crafting)",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/brewing_and_crafter.toml",
+      "description": "3x3 slot toggle disabling, redstone-pulsed recipe ejection, and slot count comparator output."
+    },
+    {
+      "name": "Dispenser & Dropper",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Item dispensing mechanics (arrows, water buckets, armor equips, fireworks) and dropper transfer."
+    },
+    {
+      "name": "Hopper",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/container_screens.toml",
+      "description": "5-slot inventory, 4-tick cooldown transfer rate, upward suction, and redstone locking."
+    },
+    {
+      "name": "Target Block",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Projectile impact coordinates signal emission (1 to 15 strength based on bullseye hit)."
+    },
+    {
+      "name": "Daylight Detector",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Sunlight level evaluation and inverted inverted moonlight sensor toggling."
+    },
+    {
+      "name": "Tripwire & Tripwire Hook",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "String tension detection, entity crossing activation, and shears disarming."
+    },
+    {
+      "name": "Pressure Plates & Buttons",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Wood (all entities), Stone (mobs/players), Heavy/Light weighted plates, and wood/stone buttons."
+    },
+    {
+      "name": "Lever",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Wall, floor and ceiling mounting, toggle state, and adjacent block power distribution."
+    },
+    {
+      "name": "Note Block",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "16 instrument sound banks based on supporting block, pitch tuning (0-24), and particle emission."
+    },
+    {
+      "name": "Jukebox",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Music disc insertion, 3D audio playback, comparator disc ID output, and hopper automation."
+    },
+    {
+      "name": "TNT & Primed TNT",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Redstone and flint ignition, primed entity gravity velocity, 4.0 explosion blast radius."
+    },
+    {
+      "name": "Lightning Rod",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "128-block radius lightning redirection and 8-tick full strength redstone pulse emission."
+    },
+    {
+      "name": "Lectern",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Book & quill reading interface, page turning, and page number comparator evaluation."
+    },
+    {
+      "name": "Chiseled Bookshelf",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "6 individual slot book placement, visual book filling, and targeted slot comparator output."
+    },
+    {
+      "name": "Composter",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Organic crop composting odds, 7 layer fill stages, bonemeal harvesting, and hopper linking."
+    },
+    {
+      "name": "Bell",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Resonant sound chime, particle wave, and raid glowing outline illumination."
+    },
+    {
+      "name": "Water & Lava Fluid Flow",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Decaying fluid level physics, vector flow direction math, and cobblestone/obsidian collision."
+    },
+    {
+      "name": "Waterlogging System",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::world::block",
+      "description": "Dual block state waterlogging in stairs, slabs, fences, trapdoors, chests, and signs."
+    },
+    {
+      "name": "Bubble Columns",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "pomme-client::physics",
+      "description": "Soul sand upward buoyant lift and magma block downward whirlpool drag."
+    },
+    {
+      "name": "Piston Quasi-Connectivity",
+      "category": "blocks",
+      "status": "In Progress",
+      "tag": "pomme-client::world",
+      "description": "Java Edition quasi-connectivity block update detector (BUD) power quirks on pistons."
+    },
+    {
+      "name": "Sculk Sensor & Vibration Listeners",
+      "category": "blocks",
+      "status": "In Progress",
+      "tag": "pomme-client::world",
+      "description": "15 vibration frequency channels, wool occlusion dampening, and active cooldown state."
+    },
+    {
+      "name": "Calibrated Sculk Sensor",
+      "category": "blocks",
+      "status": "In Progress",
+      "tag": "pomme-client::world",
+      "description": "Back-channel redstone signal filter to trigger only on specific frequency vibrations."
+    },
+    {
+      "name": "Sculk Shrieker & Catalyst",
+      "category": "blocks",
+      "status": "Planned",
+      "tag": "pomme-client::world",
+      "description": "Shrieker warning level tracking, darkness effect pulsing, and catalyst mob death spreading."
+    },
+    {
+      "name": "Copper Bulb (1.21)",
+      "category": "blocks",
+      "status": "Planned",
+      "tag": "pomme-client::world",
+      "description": "1-tick pulse T-flip-flop bistable toggle state and oxidation light decay."
+    },
+    {
+      "name": "Vault & Trial Spawner (1.21)",
+      "category": "blocks",
+      "status": "Planned",
+      "tag": "pomme-client::world",
+      "description": "Per-player unlock keys, dynamic mob wave scaling, and ejection reward tables."
+    },
+    {
+      "name": "Crafting Table",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "pomme-client::ui::crafting_table",
+      "description": "3x3 recipe pattern grid, recipe book auto-fill, and inventory drop on close."
+    },
+    {
+      "name": "Furnace, Smoker & Blast Furnace",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/brewing_and_crafter.toml",
+      "description": "Fuel burn timer, cooking progress bar, flame particle animations, and specialized double speeds."
+    },
+    {
+      "name": "Brewing Stand",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/brewing_and_crafter.toml",
+      "description": "Blaze powder fuel gauge, 3-bottle slots, ingredient brewing timer, and bubble animation."
+    },
+    {
+      "name": "Anvil & Chipped Anvil",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "pomme-client::ui::anvil",
+      "description": "XP level cost scaling, Prior Work Penalty calculation, custom item renaming, and drop damage."
+    },
+    {
+      "name": "Enchanting Table",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "pomme-client::ui::enchantment",
+      "description": "Bookshelf aura calculation (up to 15), 3 tier offerings, lapis consumption, and floating book."
+    },
+    {
+      "name": "Chest & Double Chest",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/container_screens.toml",
+      "description": "27 and 54 slot screens, smooth opening/closing lid sound & rotation, and cat sitting lock."
+    },
+    {
+      "name": "Barrel",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "pomme-client::ui::container",
+      "description": "27-slot storage container operable with solid blocks overhead and fisherman workstation."
+    },
+    {
+      "name": "Ender Chest",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "pomme-client::ui::container",
+      "description": "Player-isolated interdimensional storage, silk touch recovery, and purple particle aura."
+    },
+    {
+      "name": "Shulker Box (16 Colors)",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "tests/ingame/items/bundle_in_shulker.toml",
+      "description": "Vertical opening lid animation, retention of inner contents on break, and bundle nesting."
+    },
+    {
+      "name": "Grindstone",
+      "category": "workstations",
+      "status": "Ready",
+      "tag": "pomme-client::ui::container",
+      "description": "Disenchanting gear for experience refunds and combining tool durability."
+    },
+    {
+      "name": "Smithing Table",
+      "category": "workstations",
+      "status": "In Progress",
+      "tag": "pomme-client::ui",
+      "description": "Armor Trim application with template patterns and Netherite upgrade ingot crafting."
+    },
+    {
+      "name": "Stonecutter",
+      "category": "workstations",
+      "status": "In Progress",
+      "tag": "pomme-client::ui",
+      "description": "Direct 1:1 recipe selection for stone blocks, stairs, slabs, and mason profession."
+    },
+    {
+      "name": "Cartography Table",
+      "category": "workstations",
+      "status": "In Progress",
+      "tag": "pomme-client::ui",
+      "description": "Map zooming, map cloning, glass pane map locking, and cartographer workstation."
+    },
+    {
+      "name": "Loom",
+      "category": "workstations",
+      "status": "In Progress",
+      "tag": "pomme-client::ui",
+      "description": "Banner design patterns, dye consumption, and shepherd profession workstation."
+    },
+    {
+      "name": "Decorated Pot",
+      "category": "workstations",
+      "status": "Planned",
+      "tag": "pomme-client::world",
+      "description": "Pottery sherd crafting, single item stack insertion, and projectile break destruction."
+    },
+    {
+      "name": "1.20.5+ Data Components",
+      "category": "items",
+      "status": "Ready",
+      "tag": "tests/ingame/items/components.toml",
+      "description": "Item component deserialization, custom names, colored lore, attributes, and banner data."
+    },
+    {
+      "name": "Bundle (Storage & Nesting)",
+      "category": "items",
+      "status": "Ready",
+      "tag": "tests/ingame/items/bundle_in_shulker.toml",
+      "description": "Nested item capacity weight math, bundle item cycling, and shulker box compatibility."
+    },
+    {
+      "name": "Tool Durability & Mining Speeds",
+      "category": "items",
+      "status": "Ready",
+      "tag": "pomme-client::tool",
+      "description": "Multipliers across Wood, Stone, Iron, Diamond, Netherite, Unbreaking math, and Mending XP."
+    },
+    {
+      "name": "Consumables & Food Saturation",
+      "category": "items",
+      "status": "Ready",
+      "tag": "tests/ingame/items/consumables.toml",
+      "description": "Eating animation, duration ticks, saturation tier restorative math, and empty bowl/bottle returns."
+    },
+    {
+      "name": "Armor & Trim Rendering",
+      "category": "items",
+      "status": "Ready",
+      "tag": "tests/ingame/player/armor_equip.toml",
+      "description": "Full layered 3D armor sets, 16 trim materials, and damage reduction calculation."
+    },
+    {
+      "name": "Shield (Block & Parrying)",
+      "category": "items",
+      "status": "Ready",
+      "tag": "tests/ingame/player/offhand_use.toml",
+      "description": "Offhand raise timing, 100% melee/projectile deflection, and axe disable cooldown."
+    },
+    {
+      "name": "Bow & Crossbow",
+      "category": "items",
+      "status": "Ready",
+      "tag": "pomme-client::player",
+      "description": "Draw charge timing stages, arrow particle trails, multishot, piercing, and quick charge."
+    },
+    {
+      "name": "Trident (Loyalty & Riptide)",
+      "category": "items",
+      "status": "Ready",
+      "tag": "pomme-client::physics",
+      "description": "Throw ballistics, Loyalty water return trajectory, and Riptide rain/water launch momentum."
+    },
+    {
+      "name": "Elytra Flight",
+      "category": "items",
+      "status": "Ready",
+      "tag": "pomme-client::physics::movement",
+      "description": "Aerodynamic lift/drag simulation, pitch stall physics, firework rocket boosts, kinetic damage."
+    },
+    {
+      "name": "Fishing Rod",
+      "category": "items",
+      "status": "In Progress",
+      "tag": "pomme-client::entity",
+      "description": "Cast bobber kinematics, water bite particle trails, reel-in catch tables, and entity pulling."
+    },
+    {
+      "name": "Compass & Recovery Compass",
+      "category": "items",
+      "status": "In Progress",
+      "tag": "pomme-client::tool",
+      "description": "World spawn pointing, lodestone magnetic locking, and recovery compass death coordinate tracking."
+    },
+    {
+      "name": "Clock",
+      "category": "items",
+      "status": "Ready",
+      "tag": "pomme-client::tool",
+      "description": "Dynamic celestial rotation dial tracking in-game sun/moon day-night cycle."
+    },
+    {
+      "name": "Map & Filled Map",
+      "category": "items",
+      "status": "In Progress",
+      "tag": "pomme-client::renderer",
+      "description": "128x128 pixel terrain render surface, color palette decoding, and player pointer markers."
+    },
+    {
+      "name": "Fireworks",
+      "category": "items",
+      "status": "In Progress",
+      "tag": "pomme-client::particle",
+      "description": "Flight duration scaling, star explosion color flares, and sound emitter bursts."
+    },
+    {
+      "name": "Spyglass",
+      "category": "items",
+      "status": "Ready",
+      "tag": "pomme-client::renderer",
+      "description": "Circular scope overlay vignette and smooth 10x field of view zoom transition."
+    },
+    {
+      "name": "Wind Charge (1.21)",
+      "category": "items",
+      "status": "Planned",
+      "tag": "pomme-client::physics",
+      "description": "Thrown wind projectile emitting area-of-effect knockback blast on impact."
+    },
+    {
+      "name": "Mace (1.21)",
+      "category": "items",
+      "status": "Planned",
+      "tag": "pomme-client::player",
+      "description": "Fall distance smash damage scaling, zero fall damage on hit, and density/breach enchants."
+    },
+    {
+      "name": "20 Hz Decoupled Tick Loop",
+      "category": "player",
+      "status": "Ready",
+      "tag": "tests/ingame/player/state.toml",
+      "description": "Deterministic 50 ms simulation tick decoupled from display frame refresh rates."
+    },
+    {
+      "name": "Movement Physics (Walk & Sprint)",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::physics::movement",
+      "description": "Tick-exact velocity acceleration, step-up collision math, and friction per block material."
+    },
+    {
+      "name": "Sneaking & Crawling",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::physics::movement",
+      "description": "1.5m eye height sneaking without falling off edges; 1.0m crawling in trapdoors and water."
+    },
+    {
+      "name": "Water Swimming",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::physics::movement",
+      "description": "Dolphin sprint swim posture, 3D vector pitch movement, and 1x1 water gap traversal."
+    },
+    {
+      "name": "1.9+ Weapon Attack Cooldown",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::player::interaction",
+      "description": "Crosshair cooldown indicator, attack recharge meter, and full damage charge threshold."
+    },
+    {
+      "name": "Sweeping Edge Area Attacks",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::player::interaction",
+      "description": "Horizontal sweeping wave particle on full cooldown charge hitting nearby entities."
+    },
+    {
+      "name": "Critical Hits",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::player::interaction",
+      "description": "Falling momentum attack multiplier (+50% base damage) and sharp crit particle emission."
+    },
+    {
+      "name": "Shield Deflection & Axe Stun",
+      "category": "player",
+      "status": "Ready",
+      "tag": "tests/ingame/player/offhand_use.toml",
+      "description": "Blocking damage, sound reflection, and 5-second shield disabling from heavy axe attacks."
+    },
+    {
+      "name": "Fall Damage & Mitigations",
+      "category": "player",
+      "status": "Ready",
+      "tag": "tests/ingame/player/place_fall_splash.toml",
+      "description": "Fall distance calculation, feather falling absorption, water, hay bale, and slime bounce."
+    },
+    {
+      "name": "Drowning & Suffocation",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::physics",
+      "description": "Air bubble depletion (300 ticks), respiration buff, and solid block wall suffocation."
+    },
+    {
+      "name": "Fire, Lava & Void Damage",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::physics",
+      "description": "Fire tick burning, lava swim drag, fire resistance immunity, and y < -64 void damage."
+    },
+    {
+      "name": "Hunger & Saturation Curves",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::player",
+      "description": "Exhaustion accumulation (sprint, jump, mine), saturation buffer, and natural health regen."
+    },
+    {
+      "name": "Potion Status Effects",
+      "category": "player",
+      "status": "Ready",
+      "tag": "pomme-client::player",
+      "description": "Speed, Slowness, Haste, Mining Fatigue, Strength, Poison, Wither, Regeneration, Bad Omen."
+    },
+    {
+      "name": "Beacons",
+      "category": "player",
+      "status": "In Progress",
+      "tag": "pomme-client::world",
+      "description": "Pyramid mineral block validation, sky beam shader, and periodic radius buff broadcast."
+    },
+    {
+      "name": "Conduits",
+      "category": "player",
+      "status": "Planned",
+      "tag": "pomme-client::world",
+      "description": "Prismarine frame activation, eye spinning animation, underwater breathing and night vision."
+    },
+    {
+      "name": "Overworld Dimension",
+      "category": "world",
+      "status": "Ready",
+      "tag": "pomme-client::world::level",
+      "description": "Height range -64 to 320, surface terrain, underground caves, water oceans, and clouds."
+    },
+    {
+      "name": "The Nether Dimension",
+      "category": "world",
+      "status": "Ready",
+      "tag": "pomme-client::world::level",
+      "description": "Ceiling bedrock (y=127), lava sea (y=31), red ambient fog, and Nether biomes."
+    },
+    {
+      "name": "The End Dimension",
+      "category": "world",
+      "status": "Ready",
+      "tag": "pomme-client::world::level",
+      "description": "Dark void skybox, central obsidian pillar arena, and outer chorus plant islands."
+    },
+    {
+      "name": "Nether Portals & 8:1 Coordinate Math",
+      "category": "world",
+      "status": "Ready",
+      "tag": "pomme-client::world::environment",
+      "description": "Obsidian frame ignition, animated purple vortex, and 8:1 Overworld to Nether position mapping."
+    },
+    {
+      "name": "End Portal & End Gateways",
+      "category": "world",
+      "status": "Ready",
+      "tag": "pomme-client::world::environment",
+      "description": "12-frame Eye of Ender insertion, starry portal shader, and 1,000-block gateway beams."
+    },
+    {
+      "name": "Dynamic Biome Colormaps",
+      "category": "world",
+      "status": "Ready",
+      "tag": "tests/ingame/world/fillbiome.toml",
+      "description": "Foliage and grass triangle colormaps, water color tints, and smooth biome edge blending."
+    },
+    {
+      "name": "Weather & Thunderstorms",
+      "category": "world",
+      "status": "Ready",
+      "tag": "pomme-client::world::environment",
+      "description": "Rain, snow elevation temperature cutoffs, sky darkening, and lightning bolt flashes."
+    },
+    {
+      "name": "Smooth Lighting & Ambient Occlusion",
+      "category": "world",
+      "status": "Ready",
+      "tag": "tests/ingame/world/lightmap.toml",
+      "description": "Skylight & blocklight propagation, 4-vertex quad ambient occlusion, and tinted glass attenuation."
+    },
+    {
+      "name": "Paletted Chunk Arenas",
+      "category": "world",
+      "status": "Ready",
+      "tag": "tests/ingame/world/chunk_arenas.toml",
+      "description": "Deterministic chunk arena memory allocation, zero GC pauses, and zero-copy section unloads."
+    },
+    {
+      "name": "Embedded Singleplayer (SteelMC)",
+      "category": "world",
+      "status": "Ready",
+      "tag": "pomme-singleplayer",
+      "description": "In-process multithreaded Rust server, no JVM classloading, and no local network socket delay."
+    },
+    {
+      "name": "Anvil Region (.mca) World Persistence",
+      "category": "world",
+      "status": "Ready",
+      "tag": "pomme-client::world",
+      "description": "Seamless read/write round-tripping of standard vanilla region files and level.dat NBT data."
+    },
+    {
+      "name": "Distant Terrain LOD Meshes",
+      "category": "world",
+      "status": "In Progress",
+      "tag": "tests/ingame/world/distant_terrain.toml",
+      "description": "Rendering extended terrain beyond server simulation distance via simplified polygon meshes."
+    },
+    {
+      "name": "World Borders",
+      "category": "world",
+      "status": "In Progress",
+      "tag": "pomme-client::world",
+      "description": "Expanding/contracting border forcefields, warning color tints, and out-of-bounds damage."
+    },
+    {
+      "name": "In-Game HUD Overlays",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/ui/hud.toml",
+      "description": "Hearts (normal, poison, wither, absorption), hunger drumsticks, armor shields, air bubbles, XP."
+    },
+    {
+      "name": "Boss Health Bars",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "pomme-client::ui::boss_bar",
+      "description": "Multi-boss bars with segmented color tiers (Ender Dragon, Wither, Raid) and custom titles."
+    },
+    {
+      "name": "F3 Debug Screen & Profiler",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/ui/debug_overlay.toml",
+      "description": "Real-time FPS, frame timing graph, player XYZ, facing, targeted block/fluid, biome, light level."
+    },
+    {
+      "name": "F3+B Hitboxes & F3+G Borders",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "pomme-client::renderer",
+      "description": "Visualizing entity bounding boxes, eye height vectors, and 16x16 chunk border boundaries."
+    },
+    {
+      "name": "Advancement Toasts",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/ui/advancements_toast.toml",
+      "description": "Unlockable advancement notifications, challenge/goal frames, and recipe unlock cues."
+    },
+    {
+      "name": "Server Tablist",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/player/list.toml",
+      "description": "Multi-column player listing with latency ping bars, player skins, and custom header/footer."
+    },
+    {
+      "name": "Scoreboard Display System",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/ui/scoreboard.toml",
+      "description": "Sidebar scoreboard objectives, red integer scores, team color formatting, and below-name stats."
+    },
+    {
+      "name": "Chat Screen & Autocomplete",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "pomme-client::ui::chat",
+      "description": "100-line message history buffer, clickable links, command tab completion, and copy-paste."
+    },
+    {
+      "name": "Pause Menu & Game Mode Switcher",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/ui/pause_menu.toml",
+      "description": "F3+F4 radial gamemode switcher, options menu, world statistics, and disconnect flow."
+    },
+    {
+      "name": "Death Screen & Immediate Respawn",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "pomme-client::ui::death",
+      "description": "Red death vignette, death message cause, final score, and bed/anchor respawn dispatch."
+    },
+    {
+      "name": "Control Rebinding & Raw Input",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/player/rebinding.toml",
+      "description": "Full keyboard/mouse rebinding, raw mouse input curves, auto-jump toggle, sprint/sneak toggles."
+    },
+    {
+      "name": "Spectator Mode & Camera Shaders",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/player/spectator_effects.toml",
+      "description": "Noclip camera fly-through, player/mob spectating, and custom mob vision post-processing."
+    },
+    {
+      "name": "Subtitles Overlay",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "pomme-client::ui::subtitles",
+      "description": "Directional hearing indicators with sound labels and sound level volume arrows."
+    },
+    {
+      "name": "Direct Vulkan 1.3 Pipeline",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-gpu",
+      "description": "Custom SPIR-V compute and vertex pipelines without legacy OpenGL state machine overhead."
+    },
+    {
+      "name": "Apple Metal Translation (MoltenVK)",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-client::renderer",
+      "description": "Zero CPU penalty Vulkan-to-Metal translation on macOS and iOS TestFlight builds."
+    },
+    {
+      "name": "Iris & OptiFine GLSL Shaderpacks",
+      "category": "engine",
+      "status": "In Progress",
+      "tag": "pomme-client::shaderpack",
+      "description": "GLSL shaderpack preprocessor, directive parser, custom uniforms, and deferred pass pipeline."
+    },
+    {
+      "name": "Multi-Version Protocol (1.20 - 26.3)",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-protocol",
+      "description": "Zero-allocation packet rewrite dispatch tables auto-negotiating across protocol versions."
+    },
+    {
+      "name": "Chunk Streaming (1.21.5+)",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-client::net",
+      "description": "Modern packet streaming, paletted chunk decoding, and worker thread quad generation."
+    },
+    {
+      "name": "Legacy Chunk Translation (1.20 - 1.21.4)",
+      "category": "engine",
+      "status": "In Progress",
+      "tag": "pomme-protocol::chunk",
+      "description": "Dynamic backward-compatibility packet decoders converting pre-1.21.5 chunk layouts."
+    },
+    {
+      "name": "Microsoft OAuth2 Keyring Auth",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-auth",
+      "description": "Device link code exchange, Xbox Live token refresh, and encrypted OS Keyring storage."
+    },
+    {
+      "name": "Server Ecosystem Compatibility",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-protocol",
+      "description": "Verified gameplay on Paper, Spigot, Purpur, Fabric, Velocity, BungeeCord, and Vanilla servers."
+    },
+    {
+      "name": "Anti-Cheat Packet Pacing",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-client::net::sender",
+      "description": "Deterministic 50 ms tick movement packet pacing, passing GrimAC, Vulcan and Matrix checks."
+    },
+    {
+      "name": "OpenAL Soft 3D Spatial Audio",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "tests/ingame/world/sounds.toml",
+      "description": "3D positional sound listener orientation, distance attenuation curves, and obstacle occlusion."
+    },
+    {
+      "name": "Mojang CDN Asset Streaming",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-install",
+      "description": "Cryptographic hash verification and streaming from Mojang CDN into local content cache."
+    },
+    {
+      "name": "Live Resource Pack Hot-Reload",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-client::resource_pack",
+      "description": "Dynamic client and server-sent resource pack loading without restarting the client."
+    },
+    {
+      "name": "Signs, Hanging Signs & Text Screen",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/signs.toml",
+      "description": "Standing, wall, and hanging sign rendering in world space with interactive text editing GUI."
+    },
+    {
+      "name": "Multipart Block Conditions",
+      "category": "blocks",
+      "status": "Ready",
+      "tag": "tests/ingame/blocks/multipart_conditions.toml",
+      "description": "Multipart condition evaluation for redstone wire connections, shelves, and chiseled bookshelves."
+    },
+    {
+      "name": "3D Nameplates & Mob Tags",
+      "category": "entities",
+      "status": "Ready",
+      "tag": "tests/ingame/entities/nameplates.toml",
+      "description": "Billboarded 3D nameplates for players and custom named mobs with distance culling."
+    },
+    {
+      "name": "3D Player Heads & Container Tooltips",
+      "category": "items",
+      "status": "Ready",
+      "tag": "tests/ingame/items/heads_and_tooltips.toml",
+      "description": "3D player head skin rendering in inventories and hover tooltip text evaluation."
+    },
+    {
+      "name": "Third-Person Camera & Body Rotation",
+      "category": "player",
+      "status": "Ready",
+      "tag": "tests/ingame/player/third_person.toml",
+      "description": "Third-person F5 camera occlusion culling, head pitch decoupling, and body rotation interpolation."
+    },
+    {
+      "name": "FPS Display & Debug Options",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/ui/debug_options.toml",
+      "description": "FPS performance counter overlay, min/max frame time telemetry, and debug toggles."
+    },
+    {
+      "name": "Container Screen Auto-Close Chat",
+      "category": "ui",
+      "status": "Ready",
+      "tag": "tests/ingame/ui/chat_replaced_by_container.toml",
+      "description": "Smoothly closing active chat box when server opens a container screen without state desync."
+    },
+    {
+      "name": "Multi-Version Dispatch Tables (1.20 - 26.3)",
+      "category": "engine",
+      "status": "Ready",
+      "tag": "pomme-protocol::version",
+      "description": "Packet rewrite tables split by version and chosen via compiled dispatch tables without runtime allocations."
+    }
+  ]
+}

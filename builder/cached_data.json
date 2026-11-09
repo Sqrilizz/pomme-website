@@ -1,0 +1,241 @@
+{
+  "repo": {
+    "stargazers_count": 260,
+    "forks_count": 48,
+    "open_issues_count": 38
+  },
+  "release": {
+    "tag_name": "client-v0.2.10+26.2",
+    "published_at": "2026-11-08T22:19:55Z",
+    "html_url": "https://github.com/PommeMC/Client/releases/tag/client-v0.2.10%2B26.2",
+    "body": "These builds aren't signed yet, so the first launch needs one extra step:\n- **macOS:** open `Pomme.app` with right-click → Open, or allow it under System Settings → Privacy & Security.\n- **Windows:** on the SmartScreen prompt, choose More info → Run anyway.\n- **Linux:** `chmod +x pomme-client-linux-x64-gnu.AppImage`, then run it.\n\n\n<!-- Release notes generated using configuration in .github/release.yml at master -->\n\n## What's Changed\n* open the hopper, dispenser and dropper screens by @Purdze in https://github.com/PommeMC/Client/pull/866\n* let the cursor go when the window loses focus, keep test windows off it by @Purdze in https://github.com/PommeMC/Client/pull/875\n* fix missing chunks at high render distance by @Purdze in https://github.com/PommeMC/Client/pull/853\n* render perf by @Purdze in https://github.com/PommeMC/Client/pull/872\n* distant terrain by @Purdze in https://github.com/PommeMC/Client/pull/873\n* Faster, responsive startup by @Purdze in https://github.com/PommeMC/Client/pull/876\n* Drop unreachable boot screen fallbacks by @Purdze in https://github.com/PommeMC/Client/pull/877\n* Footsteps and a generated block sound table by @Purdze in https://github.com/PommeMC/Client/pull/878\n* Place, landing and splash sounds by @Purdze in https://github.com/PommeMC/Client/pull/879\n* floor the player's position when finding its chunk column by @Purdze in https://github.com/PommeMC/Client/pull/856\n* open the brewing stand and crafter screens by @Purdze in https://github.com/PommeMC/Client/pull/869\n* lock each chunk column once per collision scan by @Chromatischer in https://github.com/PommeMC/Client/pull/894\n* Tidy the install folder by @Purdze in https://github.com/PommeMC/Client/pull/895\n* Close chat when the server opens a container by @Purdze in https://github.com/PommeMC/Client/pull/896\n* fix third-person camera culling and player body rotation by @Sqrilizz in https://github.com/PommeMC/Client/pull/885\n* Show FPS through debug entries and Debug Options by @Sqrilizz in https://github.com/PommeMC/Client/pull/883\n* render item tooltips in containers and 3d player heads in menus by @Sqrilizz in https://github.com/PommeMC/Client/pull/884\n* render 3d nameplates for players and named mobs by @Sqrilizz in https://github.com/PommeMC/Client/pull/886\n* Bump pyronyx to 0.5.1 by @Purdze in https://github.com/PommeMC/Client/pull/897\n* Load Vulkan at runtime and explain a renderer that can't start by @Purdze in https://github.com/PommeMC/Client/pull/887\n* render sign text in world space and add sign edit screen by @Sqrilizz in https://github.com/PommeMC/Client/pull/888\n* render boat models, simulate steering, and handle passenger seating by @Sqrilizz in https://github.com/PommeMC/Client/pull/889\n* draw multipart blocks by their full conditions: redstone wire, shelves and chiseled bookshelves by @Chromatischer in https://github.com/PommeMC/Client/pull/890\n* split the protocol translator by version and pick its rewrites from dispatch tables by @Chromatischer in https://github.com/PommeMC/Client/pull/891\n\n## New Contributors\n* @Chromatischer made their first contribution in https://github.com/PommeMC/Client/pull/894\n\n**Full Changelog**: https://github.com/PommeMC/Client/compare/client-v0.2.9+26.2...client-v0.2.10+26.2",
+    "assets": [
+      {
+        "name": "pomme-client-linux-x64-gnu.AppImage",
+        "size": 33729016,
+        "browser_download_url": "https://github.com/PommeMC/Client/releases/download/client-v0.2.10%2B26.2/pomme-client-linux-x64-gnu.AppImage"
+      },
+      {
+        "name": "pomme-client-linux-x64-gnu.zip",
+        "size": 36794950,
+        "browser_download_url": "https://github.com/PommeMC/Client/releases/download/client-v0.2.10%2B26.2/pomme-client-linux-x64-gnu.zip"
+      },
+      {
+        "name": "pomme-client-macos-arm64.dmg",
+        "size": 41032019,
+        "browser_download_url": "https://github.com/PommeMC/Client/releases/download/client-v0.2.10%2B26.2/pomme-client-macos-arm64.dmg"
+      },
+      {
+        "name": "pomme-client-macos-arm64.zip",
+        "size": 35868331,
+        "browser_download_url": "https://github.com/PommeMC/Client/releases/download/client-v0.2.10%2B26.2/pomme-client-macos-arm64.zip"
+      },
+      {
+        "name": "pomme-client-windows-x64-setup.exe",
+        "size": 22933406,
+        "browser_download_url": "https://github.com/PommeMC/Client/releases/download/client-v0.2.10%2B26.2/pomme-client-windows-x64-setup.exe"
+      },
+      {
+        "name": "pomme-client-windows-x64.zip",
+        "size": 32492845,
+        "browser_download_url": "https://github.com/PommeMC/Client/releases/download/client-v0.2.10%2B26.2/pomme-client-windows-x64.zip"
+      },
+      {
+        "name": "sha256sums.txt",
+        "size": 585,
+        "browser_download_url": "https://github.com/PommeMC/Client/releases/download/client-v0.2.10%2B26.2/sha256sums.txt"
+      }
+    ]
+  },
+  "checksums": {
+    "pomme-client-linux-x64-gnu.AppImage": "80695ead7ad3b37c23c1728ded07ce15fc42e682a087896d13825a6b4886a3ec",
+    "pomme-client-windows-x64.zip": "23ab48bc7c965181f428d4b98ef2b7f915128740be5b8c8c18736c2de77bcb02",
+    "pomme-client-macos-arm64.dmg": "f46fcc17d17fa7a9f7f80714fbcf12f768deca74c1e6a15fba32759addce6c08",
+    "pomme-client-linux-x64-gnu.zip": "e7a4ac133b475c6d82830b96e12a1e26a3df9d0aa3e769e414ce791739d3557c",
+    "pomme-client-macos-arm64.zip": "3a20afb35c8f5f34039fb25b6067e81674b26ea24dc20d942338e7c6c79e0b12",
+    "pomme-client-windows-x64-setup.exe": "141e9c07eff112e89a10eb60b363af15e86af877b89ccb7c0427d18728b550ca"
+  },
+  "contributors": [
+    {
+      "login": "Purdze",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29306641?v=4",
+      "html_url": "https://github.com/Purdze",
+      "contributions": 435
+    },
+    {
+      "login": "dependabot[bot]",
+      "avatar_url": "https://avatars.githubusercontent.com/in/29110?v=4",
+      "html_url": "https://github.com/apps/dependabot",
+      "contributions": 263
+    },
+    {
+      "login": "Spencer0187",
+      "avatar_url": "https://avatars.githubusercontent.com/u/125307856?v=4",
+      "html_url": "https://github.com/Spencer0187",
+      "contributions": 34
+    },
+    {
+      "login": "arse09",
+      "avatar_url": "https://avatars.githubusercontent.com/u/188513879?v=4",
+      "html_url": "https://github.com/arse09",
+      "contributions": 31
+    },
+    {
+      "login": "colonthreeing",
+      "avatar_url": "https://avatars.githubusercontent.com/u/104701738?v=4",
+      "html_url": "https://github.com/colonthreeing",
+      "contributions": 11
+    },
+    {
+      "login": "lazy-importer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/207369570?v=4",
+      "html_url": "https://github.com/lazy-importer",
+      "contributions": 9
+    },
+    {
+      "login": "Sqrilizz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/210909823?v=4",
+      "html_url": "https://github.com/Sqrilizz",
+      "contributions": 8
+    },
+    {
+      "login": "ChronosWS",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4461446?v=4",
+      "html_url": "https://github.com/ChronosWS",
+      "contributions": 5
+    },
+    {
+      "login": "Chromatischer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75129897?v=4",
+      "html_url": "https://github.com/Chromatischer",
+      "contributions": 3
+    },
+    {
+      "login": "BjornTheProgrammer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75190918?v=4",
+      "html_url": "https://github.com/BjornTheProgrammer",
+      "contributions": 3
+    },
+    {
+      "login": "chocodev11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/100467857?v=4",
+      "html_url": "https://github.com/chocodev11",
+      "contributions": 1
+    },
+    {
+      "login": "Collin-Budrick",
+      "avatar_url": "https://avatars.githubusercontent.com/u/76412116?v=4",
+      "html_url": "https://github.com/Collin-Budrick",
+      "contributions": 1
+    },
+    {
+      "login": "DustinReynoldsPE",
+      "avatar_url": "https://avatars.githubusercontent.com/u/71948215?v=4",
+      "html_url": "https://github.com/DustinReynoldsPE",
+      "contributions": 1
+    },
+    {
+      "login": "JunkyDeveloper",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56804181?v=4",
+      "html_url": "https://github.com/JunkyDeveloper",
+      "contributions": 1
+    },
+    {
+      "login": "Max-109",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82242062?v=4",
+      "html_url": "https://github.com/Max-109",
+      "contributions": 1
+    },
+    {
+      "login": "dxxxxy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42523606?v=4",
+      "html_url": "https://github.com/dxxxxy",
+      "contributions": 1
+    },
+    {
+      "login": "urisinger",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60300761?v=4",
+      "html_url": "https://github.com/urisinger",
+      "contributions": 1
+    }
+  ],
+  "commits": [
+    {
+      "sha": "d4805a8cf82a24b70064b5cad07412d4f5f7b0cc",
+      "html_url": "https://github.com/PommeMC/Client/commit/d4805a8cf82a24b70064b5cad07412d4f5f7b0cc",
+      "commit": {
+        "message": "Draw chat, titles and subtitles under screens, and the debug overlay over them (#901)\n\n* draw chat, titles and subtitles under screens, and the debug overlay over them\n\n* draw nameplates under the HUD, subtitles under a dialog over a container\n\nAdds a show_subtitles harness option and ui/hud shots for titles and subtitles against open screens.\n\n* drop the screen-space nameplates the 3d name tags replaced"
+      },
+      "author": {
+        "login": "Purdze",
+        "avatar_url": "https://avatars.githubusercontent.com/u/29306641?v=4"
+      }
+    },
+    {
+      "sha": "df656521343fe546511487377e47d02e53e84c28",
+      "html_url": "https://github.com/PommeMC/Client/commit/df656521343fe546511487377e47d02e53e84c28",
+      "commit": {
+        "message": "split the protocol translator by version and pick its rewrites from dispatch tables (#891)\n\n* test(client): exhaustively compare native registry enums\n\nCompare all ids and entry counts in every ClientRegistry against the runtime builtin enums.\n\nMade with: OpenAI GPT 6.1 Sol and Anthropic Claude Opus 5.5\n\n* refactor(client): resolve game rewrites into dispatch tables\n\nSelect callbacks at table construction and validate every required packet name through all supported protocol constructors. The old-chain equivalence test passed all 1974 selections before removal. Retain packet-name and precedence checks.\n\nMade with: OpenAI GPT 6.1 Sol\n\n* refactor(client): split translation rewrites by protocol\n\nMove protocol rewrites, shared codecs, dispatch construction, inbound/outbound paths, and tests into translate/. Preserve function signatures and bodies apart from module visibility and formatting.\n\nMade with: OpenAI GPT 6.1 Sol\n\n* refactor(protocol): generate entity serializer remaps by name\n\nExtract registration order from SHA-1-verified Mojang jars and mappings with the protogen sibling tool. Generate all 15 embedded tables; remap by canonical serializer name and skip metadata through the native shape table. The temporary old-function comparison passed every id in 0..64 before deleting arithmetic remappers; retain those verified maps as a fixture. All tables reproduce byte-for-byte.\n\nMade with: OpenAI GPT 6.1 Sol and Anthropic Claude Opus 5.5\n\n* refactor(client): own translation state per connection\n\nCache immutable translation tables in per-version OnceLocks. Give each connection its own dimension order and pending teleport acceptance, preserving state across reconfiguration and discarding it on reconnect. Add a regression that decodes logins across two successive connections and verifies the old dimension index is not retained.\n\nMade with: OpenAI GPT 6.1 Sol\n\n* Keep the particle drop at debug, restore the dimension-type TODO and add just serializergen\n\n---------\n\nCo-authored-by: Chromatischer <dominik@hildania.de>\nCo-authored-by: Purdze <29306641+Purdze@users.noreply.github.com>"
+      },
+      "author": {
+        "login": "Chromatischer",
+        "avatar_url": "https://avatars.githubusercontent.com/u/75129897?v=4"
+      }
+    },
+    {
+      "sha": "a91fcc789f9f3b57e11badd4a7220f98c0c5db18",
+      "html_url": "https://github.com/PommeMC/Client/commit/a91fcc789f9f3b57e11badd4a7220f98c0c5db18",
+      "commit": {
+        "message": "draw multipart blocks by their full conditions: redstone wire, shelves and chiseled bookshelves (#890)\n\n* fix(client): evaluate multipart blockstate AND and OR selectors\n\nparse_when_condition kept only string and bool values, so an AND or OR\nselector became an empty map that matched every state: straight redstone\nwire drew a dot, and shelves and chiseled bookshelves drew the parts for\nevery facing and fill state. Parse selectors into a condition tree with\nalternatives, negation and nested AND/OR, and skip a malformed selector\nwith a warning instead of drawing it unconditionally.\ntests/ingame/blocks/multipart_conditions shows all three blocks.\n\n* Negate multipart terms one by one, reject empty terms and read combiners as the codec does\n\n---------\n\nCo-authored-by: Chromatischer <dominik@hildania.de>\nCo-authored-by: Purdze <29306641+Purdze@users.noreply.github.com>"
+      },
+      "author": {
+        "login": "Chromatischer",
+        "avatar_url": "https://avatars.githubusercontent.com/u/75129897?v=4"
+      }
+    },
+    {
+      "sha": "41df8f8c03e8eccfa5f6da281d11eee66debaaa5",
+      "html_url": "https://github.com/PommeMC/Client/commit/41df8f8c03e8eccfa5f6da281d11eee66debaaa5",
+      "commit": {
+        "message": "render boat models, simulate steering, and handle passenger seating (#889)\n\n* render boat models, simulate steering, and handle passenger seating\n\n* Fix boat spawn yaw, rider tick order and the steered boat's position base\n\n---------\n\nCo-authored-by: Purdze <29306641+Purdze@users.noreply.github.com>"
+      },
+      "author": {
+        "login": "Sqrilizz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/210909823?v=4"
+      }
+    },
+    {
+      "sha": "c4e9ed942d2d36e6760f9179401e617b49368123",
+      "html_url": "https://github.com/PommeMC/Client/commit/c4e9ed942d2d36e6760f9179401e617b49368123",
+      "commit": {
+        "message": "render sign text in world space and add sign edit screen (#888)\n\nCo-authored-by: Purdze <29306641+Purdze@users.noreply.github.com>"
+      },
+      "author": {
+        "login": "Sqrilizz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/210909823?v=4"
+      }
+    },
+    {
+      "sha": "a711147258f4b1fffa23f0341ddabbbd6553a300",
+      "html_url": "https://github.com/PommeMC/Client/commit/a711147258f4b1fffa23f0341ddabbbd6553a300",
+      "commit": {
+        "message": "load Vulkan at runtime on Windows and Linux and explain a renderer that can't start (#887)"
+      },
+      "author": {
+        "login": "Purdze",
+        "avatar_url": "https://avatars.githubusercontent.com/u/29306641?v=4"
+      }
+    },
+    {
+      "sha": "31ce2127a348cecbcaf5080cf0f590e9950891c2",
+      "html_url": "https://github.com/PommeMC/Client/commit/31ce2127a348cecbcaf5080cf0f590e9950891c2",
+      "commit": {
+        "message": "Bump pyronyx to 0.5.1 (#897)"
+      },
+      "author": {
+        "login": "Purdze",
+        "avatar_url": "https://avatars.githubusercontent.com/u/29306641?v=4"
+      }
+    }
+  ]
+}
