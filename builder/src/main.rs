@@ -246,7 +246,9 @@ fn render_layout(
   <meta name="description" content="{}">
   <meta name="theme-color" content="#08090d">
   <link rel="canonical" href="{}/{}">
-  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/assets/brand/pomme.png">
+  <link rel="apple-touch-icon" href="/assets/brand/pomme.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pomme">
   <meta property="og:title" content="{} | Pomme Minecraft Client">
