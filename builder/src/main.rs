@@ -293,7 +293,7 @@ fn render_layout(
       <div>
         <p class="mono" style="color: var(--text-muted); font-size: 0.8rem;">PommeMC &copy; 2026. Licensed under GPL-3.0.</p>
         <p style="font-size: 0.75rem; margin-top: 0.25rem;">Not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-        <p class="mono" style="font-size: 0.78rem; margin-top: 0.5rem; color: var(--text-dim);">Made with ❤️ by <a href="https://github.com/Purdze" target="_blank" rel="noreferrer" style="color: var(--text-muted); text-decoration: underline;">purdze</a>, <a href="https://github.com/sqrilizz" target="_blank" rel="noreferrer" style="color: var(--text-muted); text-decoration: underline;">sqrilizz</a> and <a href="/community/" style="color: var(--text-muted); text-decoration: underline;">contributors</a></p>
+        <p class="mono" style="font-size: 0.78rem; margin-top: 0.5rem; color: var(--text-dim);">Made with ❤️ by <a href="https://github.com/sqrilizz" target="_blank" rel="noreferrer" style="color: var(--text-muted); text-decoration: underline;">sqrilizz</a> and <a href="/community/" style="color: var(--text-muted); text-decoration: underline;">contributors</a></p>
       </div>
       <div class="footer-nav mono">
         <a href="/community/">Contributors</a>
