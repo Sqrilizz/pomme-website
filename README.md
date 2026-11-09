@@ -9,9 +9,7 @@ Live preview: **[https://sqrilizz.github.io/pomme-website/](https://sqrilizz.git
 
 ## Why rewrite?
 
-> ![EVERYTHING RUST](assets/images/purdze_endorsement.png)
->
-> *"EVERYTHING RUST"* — **[Purdze](https://github.com/Purdze)**
+![EVERYTHING RUST](assets/images/purdze_endorsement.png)
 
 The original site was an Astro/Node/Bun setup with heavy dependencies. This remake replaces the entire pipeline with a clean, standalone Rust static site generator:
 
