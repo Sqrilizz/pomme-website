@@ -48,12 +48,12 @@
     ]
   },
   "checksums": {
-    "pomme-client-windows-x64.zip": "23ab48bc7c965181f428d4b98ef2b7f915128740be5b8c8c18736c2de77bcb02",
-    "pomme-client-macos-arm64.dmg": "f46fcc17d17fa7a9f7f80714fbcf12f768deca74c1e6a15fba32759addce6c08",
-    "pomme-client-windows-x64-setup.exe": "141e9c07eff112e89a10eb60b363af15e86af877b89ccb7c0427d18728b550ca",
     "pomme-client-linux-x64-gnu.zip": "e7a4ac133b475c6d82830b96e12a1e26a3df9d0aa3e769e414ce791739d3557c",
+    "pomme-client-macos-arm64.zip": "3a20afb35c8f5f34039fb25b6067e81674b26ea24dc20d942338e7c6c79e0b12",
     "pomme-client-linux-x64-gnu.AppImage": "80695ead7ad3b37c23c1728ded07ce15fc42e682a087896d13825a6b4886a3ec",
-    "pomme-client-macos-arm64.zip": "3a20afb35c8f5f34039fb25b6067e81674b26ea24dc20d942338e7c6c79e0b12"
+    "pomme-client-windows-x64-setup.exe": "141e9c07eff112e89a10eb60b363af15e86af877b89ccb7c0427d18728b550ca",
+    "pomme-client-windows-x64.zip": "23ab48bc7c965181f428d4b98ef2b7f915128740be5b8c8c18736c2de77bcb02",
+    "pomme-client-macos-arm64.dmg": "f46fcc17d17fa7a9f7f80714fbcf12f768deca74c1e6a15fba32759addce6c08"
   },
   "contributors": [
     {

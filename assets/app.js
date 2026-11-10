@@ -512,11 +512,24 @@
     var restartBtn = document.getElementById("runnerRestartBtn");
     var biomeBadgeEl = document.getElementById("runnerBiomeBadge");
 
+    canvas.width = 860;
+    canvas.height = 220;
+
+    var basePath = (function () {
+      var s = document.querySelector('script[src*="app.js"]');
+      if (s) {
+        var src = s.getAttribute("src") || "";
+        var idx = src.indexOf("/assets/");
+        if (idx !== -1) return src.slice(0, idx);
+      }
+      return "";
+    })();
+
     var appleImg = new Image();
-    appleImg.src = "/assets/brand/pomme.png";
+    appleImg.src = basePath + "/assets/brand/pomme.png";
 
     var goldAppleImg = new Image();
-    goldAppleImg.src = "/assets/brand/pomme_gold.png";
+    goldAppleImg.src = basePath + "/assets/brand/pomme_gold.png";
 
     var audioCtx = null;
     function getAudio() {
@@ -1471,8 +1484,17 @@
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(appleImg, -APPLE_SIZE / 2, -APPLE_SIZE / 2, APPLE_SIZE, APPLE_SIZE);
       } else {
+        var as = APPLE_SIZE;
+        var ahs = as / 2;
+        ctx.fillStyle = "#ef4444";
+        ctx.fillRect(-ahs + 4, -ahs + 6, as - 8, as - 8);
+        ctx.fillRect(-ahs + 2, -ahs + 10, as - 4, as - 16);
         ctx.fillStyle = "#2ecc71";
-        ctx.fillRect(-APPLE_SIZE / 2, -APPLE_SIZE / 2, APPLE_SIZE, APPLE_SIZE);
+        ctx.fillRect(0, -ahs, 8, 6);
+        ctx.fillStyle = "#78350f";
+        ctx.fillRect(-3, -ahs, 4, 7);
+        ctx.fillStyle = "#fee2e2";
+        ctx.fillRect(-ahs + 6, -ahs + 8, 4, 4);
       }
       ctx.restore();
 
@@ -1550,15 +1572,15 @@
   }
 
   function initAll() {
-    initCounters();
-    initClipboard();
-    initSubsystemTabs();
-    initBootRace();
-    initTrackerFilter();
-    initPlatformDetection();
-    initOsGuideTabs();
-    initPommeRunner();
-    initGameplayPlayer();
+    try { initCounters(); } catch (e) {}
+    try { initClipboard(); } catch (e) {}
+    try { initSubsystemTabs(); } catch (e) {}
+    try { initBootRace(); } catch (e) {}
+    try { initTrackerFilter(); } catch (e) {}
+    try { initPlatformDetection(); } catch (e) {}
+    try { initOsGuideTabs(); } catch (e) {}
+    try { initPommeRunner(); } catch (e) {}
+    try { initGameplayPlayer(); } catch (e) {}
   }
 
   if (document.readyState === "loading") {

@@ -207,6 +207,7 @@ fn render_layout(
     version: &str,
     content: &str,
 ) -> String {
+    let asset_v = format!("{}-b5", version);
     let nav_links = [
         ("/", "Overview"),
         ("/downloads", "Downloads"),
@@ -326,7 +327,7 @@ fn render_layout(
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/style.css?v={}">
 </head>
 <body>
   <header class="header">
@@ -372,7 +373,7 @@ fn render_layout(
       </div>
     </div>
   </footer>
-  <script src="/assets/app.js" defer></script>
+  <script src="/assets/app.js?v={}" defer></script>
 </body>
 </html>"####,
         title,
@@ -387,9 +388,11 @@ fn render_layout(
         title,
         desc,
         SITE_URL,
+        &asset_v,
         version,
         links_html,
-        content
+        content,
+        &asset_v
     )
 }
 
@@ -2155,8 +2158,20 @@ Host: {}
 }
 
 fn build_404() -> String {
-    format!(
-        r####"<section class="section section-404">
+    r####"<section class="section section-404">
+  <style>
+    .runner-game-card { background: var(--bg-panel, #0d1017); border: 1px solid var(--border-strong, #2a3447); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 0 auto; max-width: 860px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55); }
+    .runner-game-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; gap: 1rem; }
+    .runner-game-title-group { display: flex; align-items: center; gap: 0.65rem; }
+    .runner-game-title { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text-main, #f0f3fa); }
+    .runner-scores { display: flex; gap: 1.25rem; font-size: 0.95rem; font-weight: 700; }
+    .runner-hi { color: var(--text-dim, #505c73); }
+    .runner-cur { color: var(--accent-green, #2ecc71); min-width: 3.8rem; text-align: right; }
+    .runner-viewport { position: relative; background: #050608; border: 1px solid var(--border-subtle, #1a202c); border-radius: 6px; overflow: hidden; box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8); }
+    #pommeRunnerCanvas { display: block; width: 100%; height: auto; aspect-ratio: 860 / 220; min-height: 180px; cursor: pointer; touch-action: manipulation; }
+    .runner-game-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 0.85rem; font-size: 0.78rem; color: var(--text-muted, #8e9bb0); flex-wrap: wrap; gap: 0.5rem; }
+    .runner-game-foot kbd { display: inline-block; padding: 0.15rem 0.45rem; background: var(--bg-elevated, #131722); border: 1px solid var(--border-strong, #2a3447); border-radius: 3px; font-size: 0.72rem; color: var(--text-main, #f0f3fa); }
+  </style>
   <div class="container" style="max-width: 860px; text-align: center;">
     <h1 class="hero-title" style="margin-bottom: 0.5rem;">Page <span class="badge-highlight">not found</span></h1>
     <p class="hero-desc" style="max-width: 520px; margin: 0 auto 1.75rem auto;">
@@ -2189,8 +2204,7 @@ fn build_404() -> String {
       <a href="/parity/" class="btn btn-secondary btn-lg">Vanilla Parity</a>
     </div>
   </div>
-</section>"####
-    )
+</section>"####.to_string()
 }
 
 fn apply_base_path(html: &str, base: &str) -> String {
