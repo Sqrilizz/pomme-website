@@ -5,9 +5,9 @@ import sys
 from datetime import datetime
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-root_dir = os.path.abspath(os.path.join(script_dir, ".."))
+root_dir = os.path.abspath(os.path.join(script_dir, "..", ".."))
 client_dir = "/home/sqrilizz/Downloads/Client"
-parity_json_path = os.path.join(root_dir, "data", "parity.json")
+parity_json_path = os.path.join(root_dir, "new-website", "data", "parity.json")
 
 def get_git_info():
     if not os.path.isdir(os.path.join(client_dir, ".git")):
@@ -19,7 +19,7 @@ def get_git_info():
             "updated_at": datetime.now().strftime("%Y-%m-%d"),
             "test_count": 88
         }
-
+    
     try:
         subprocess.run(["git", "fetch", "upstream"], cwd=client_dir, capture_output=True, timeout=10)
     except Exception:
@@ -59,21 +59,87 @@ def get_git_info():
 
 def main():
     meta = get_git_info()
-    existing_milestones = []
-    items = []
 
     if os.path.exists(parity_json_path):
         with open(parity_json_path, "r", encoding="utf-8") as f:
             existing = json.load(f)
-            if isinstance(existing, dict):
-                items = existing.get("items", [])
-                existing_milestones = existing.get("recent_milestones", [])
+            if isinstance(existing, dict) and "items" in existing:
+                items = existing["items"]
             elif isinstance(existing, list):
                 items = existing
+            else:
+                items = []
+    else:
+        items = []
+
+    latest_items = [
+        {
+            "name": "Signs, Hanging Signs & Text Screen",
+            "category": "blocks",
+            "status": "Ready",
+            "tag": "tests/ingame/blocks/signs.toml",
+            "description": "Standing, wall, and hanging sign rendering in world space with interactive text editing GUI."
+        },
+        {
+            "name": "Multipart Block Conditions",
+            "category": "blocks",
+            "status": "Ready",
+            "tag": "tests/ingame/blocks/multipart_conditions.toml",
+            "description": "Multipart condition evaluation for redstone wire connections, shelves, and chiseled bookshelves."
+        },
+        {
+            "name": "3D Nameplates & Mob Tags",
+            "category": "entities",
+            "status": "Ready",
+            "tag": "tests/ingame/entities/nameplates.toml",
+            "description": "Billboarded 3D nameplates for players and custom named mobs with distance culling."
+        },
+        {
+            "name": "3D Player Heads & Container Tooltips",
+            "category": "items",
+            "status": "Ready",
+            "tag": "tests/ingame/items/heads_and_tooltips.toml",
+            "description": "3D player head skin rendering in inventories and hover tooltip text evaluation."
+        },
+        {
+            "name": "Third-Person Camera & Body Rotation",
+            "category": "player",
+            "status": "Ready",
+            "tag": "tests/ingame/player/third_person.toml",
+            "description": "Third-person F5 camera occlusion culling, head pitch decoupling, and body rotation interpolation."
+        },
+        {
+            "name": "FPS Display & Debug Options",
+            "category": "ui",
+            "status": "Ready",
+            "tag": "tests/ingame/ui/debug_options.toml",
+            "description": "FPS performance counter overlay, min/max frame time telemetry, and debug toggles."
+        },
+        {
+            "name": "Container Screen Auto-Close Chat",
+            "category": "ui",
+            "status": "Ready",
+            "tag": "tests/ingame/ui/chat_replaced_by_container.toml",
+            "description": "Smoothly closing active chat box when server opens a container screen without state desync."
+        },
+        {
+            "name": "Multi-Version Dispatch Tables (1.20 - 26.3)",
+            "category": "engine",
+            "status": "Ready",
+            "tag": "pomme-protocol::version",
+            "description": "Packet rewrite tables split by version and chosen via compiled dispatch tables without runtime allocations."
+        }
+    ]
+
+    existing_names = {i["name"]: idx for idx, i in enumerate(items)}
+    for lit in latest_items:
+        if lit["name"] in existing_names:
+            items[existing_names[lit["name"]]] = lit
+        else:
+            items.append(lit)
 
     output = {
         "meta": meta,
-        "recent_milestones": existing_milestones,
         "items": items
     }
 

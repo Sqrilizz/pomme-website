@@ -1167,23 +1167,10 @@ fn build_downloads(release: &GithubRelease, checksums: &HashMap<String, String>)
     )
 }
 
-#[derive(Debug, serde::Deserialize, Clone)]
-struct ParityMilestone {
-    name: String,
-    category: String,
-    commit: String,
-    pr: Option<String>,
-    author: String,
-    tag: String,
-    description: String,
-}
-
 #[derive(Debug, serde::Deserialize)]
 struct ParityDataset {
     meta: ParityMeta,
     items: Vec<ParityEntry>,
-    #[serde(default)]
-    recent_milestones: Vec<ParityMilestone>,
 }
 
 #[derive(Debug, serde::Deserialize)]
@@ -1304,52 +1291,6 @@ fn build_parity() -> String {
         ));
     }
 
-    let mut milestones_html = String::new();
-    for m in &dataset.recent_milestones {
-        let pr_badge = if let Some(pr) = &m.pr {
-            format!(r#"<span class="milestone-pr mono">{}</span>"#, pr)
-        } else {
-            String::new()
-        };
-        let test_link = if m.tag.starts_with("tests/") {
-            format!(
-                r#"<a href="https://github.com/PommeMC/Client/blob/master/{}" class="milestone-tag mono" target="_blank" rel="noreferrer" title="Inspect automated test on GitHub">&#9656; {} &nearr;</a>"#,
-                m.tag, m.tag
-            )
-        } else if m.tag.starts_with("pomme-") {
-            let crate_dir = m.tag.split("::").next().unwrap_or(&m.tag);
-            format!(
-                r#"<a href="https://github.com/PommeMC/Client/tree/master/{}" class="milestone-tag mono" target="_blank" rel="noreferrer" title="Inspect crate on GitHub">&#9656; {} &nearr;</a>"#,
-                crate_dir, m.tag
-            )
-        } else {
-            format!(r#"<span class="milestone-tag mono">{}</span>"#, m.tag)
-        };
-        milestones_html.push_str(&format!(
-            r#"<div class="milestone-card">
-  <div class="milestone-card-top">
-    <div class="milestone-card-title-row">
-      <h4>{}</h4>
-      <div style="display: flex; gap: 0.35rem; align-items: center; flex-shrink: 0;">
-        <span class="milestone-cat-badge mono">{}</span>
-        <span class="badge-tag badge-green">Ready</span>
-      </div>
-    </div>
-    <div class="milestone-meta-row mono">
-      <a href="https://github.com/PommeMC/Client/commit/{}" target="_blank" rel="noreferrer" class="milestone-sha">{} &nearr;</a>
-      {}
-      <span class="milestone-author">@{}</span>
-    </div>
-  </div>
-  <p class="milestone-desc">{}</p>
-  <div class="milestone-card-bot">
-    {}
-  </div>
-</div>"#,
-            m.name, m.category, m.commit, m.commit, pr_badge, m.author, m.description, test_link
-        ));
-    }
-
     let mut groups_html = String::new();
     for (key, num, title, _) in group_defs {
         let mut group_items = String::new();
@@ -1358,27 +1299,12 @@ fn build_parity() -> String {
                 continue;
             }
             let (badge_class, status_label) = status_chip(&item.status);
-            let tag_html = if item.tag.starts_with("tests/") {
-                format!(
-                    r#"<a href="https://github.com/PommeMC/Client/blob/master/{}" class="tracker-crate mono tracker-crate-link" target="_blank" rel="noreferrer" title="Inspect automated in-game test on GitHub">&#9656; {} &nearr;</a>"#,
-                    item.tag, item.tag
-                )
-            } else if item.tag.starts_with("pomme-") {
-                let crate_dir = item.tag.split("::").next().unwrap_or(&item.tag);
-                format!(
-                    r#"<a href="https://github.com/PommeMC/Client/tree/master/{}" class="tracker-crate mono tracker-crate-link" target="_blank" rel="noreferrer" title="Inspect crate source on GitHub">&#9656; {} &nearr;</a>"#,
-                    crate_dir, item.tag
-                )
-            } else {
-                format!(r#"<span class="tracker-crate mono">{}</span>"#, item.tag)
-            };
-
             group_items.push_str(&format!(
                 r#"<div class="tracker-item" data-category="{}" data-status="{}">
   <div class="tracker-info">
     <div class="tracker-item-head">
       <h4>{}</h4>
-      {}
+      <span class="tracker-crate mono">{}</span>
     </div>
     <p>{}</p>
   </div>
@@ -1387,7 +1313,7 @@ fn build_parity() -> String {
                 item.category,
                 item.status,
                 item.name,
-                tag_html,
+                item.tag,
                 item.description,
                 badge_class,
                 status_label
@@ -1482,74 +1408,10 @@ fn build_parity() -> String {
   <div class="container">
     <div class="section-head">
       <div class="section-kicker">Implementation Tracker</div>
-      <h1 class="section-title">Vanilla Parity &amp; Feature Status</h1>
+      <h1 class="section-title">Vanilla Parity & Feature Status</h1>
       <p class="section-subtitle">
-        Pomme tracks every Minecraft mechanic, mob, and block against upstream client test scripts. Exactly {} cataloged entries with direct links to verified source code and in-game tests.
+        Pomme tracks every Minecraft mechanic, mob, and block. Exactly {} entries cataloged across 8 domains with direct verification links. The full dataset lives in <code class="mono" style="color: var(--accent-rust);">parity.json</code>.
       </p>
-    </div>
-
-    <div class="parity-hero-card">
-      <div class="parity-hero-main">
-        <div class="parity-hero-pct-wrap">
-          <span class="parity-hero-number mono" data-counter="{:.1}">{:.1}</span>
-          <span class="parity-hero-symbol mono">%</span>
-        </div>
-        <div class="parity-hero-meta">
-          <div class="parity-hero-kicker mono">Ground Truth Verification</div>
-          <h2 class="parity-hero-title">Overall Vanilla Parity</h2>
-          <p class="parity-hero-subtitle">{} of {} cataloged features verified against upstream 26.2 client tests</p>
-        </div>
-      </div>
-      <div class="parity-hero-bars">
-        <div class="tracker-bar-track tracker-bar-hero">
-          <div class="tracker-bar-fill-ready" style="width: {:.1}%;"></div>
-          <div class="tracker-bar-fill-progress" style="width: {:.1}%;"></div>
-          <div class="tracker-bar-fill-planned" style="width: {:.1}%;"></div>
-        </div>
-        <div class="parity-hero-breakdown mono">
-          <div class="hero-breakdown-item">
-            <span class="dot dot-ready"></span>
-            <span class="hero-breakdown-label">Ready:</span>
-            <span class="hero-breakdown-val"><strong>{}</strong> ({:.1}%)</span>
-          </div>
-          <div class="hero-breakdown-item">
-            <span class="dot dot-progress"></span>
-            <span class="hero-breakdown-label">In Progress:</span>
-            <span class="hero-breakdown-val"><strong>{}</strong> ({:.1}%)</span>
-          </div>
-          <div class="hero-breakdown-item">
-            <span class="dot dot-planned"></span>
-            <span class="hero-breakdown-label">Planned:</span>
-            <span class="hero-breakdown-val"><strong>{}</strong> ({:.1}%)</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="milestones-section">
-      <div class="milestones-header">
-        <div class="milestones-title-wrap">
-          <span class="pulse-dot"></span>
-          <h2 class="milestones-heading mono">Recent Upstream Progress</h2>
-          <span class="badge-tag badge-rust">Live Feed</span>
-        </div>
-        <span class="milestones-sub mono">Closed mechanics and PRs verified in master</span>
-      </div>
-      <div class="milestones-grid">
-        {}
-      </div>
-    </div>
-
-    <div class="notice-box" style="margin-bottom: 2.25rem;">
-      <span class="notice-badge">How Parity Is Tracked</span>
-      <div style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
-        <strong>Automated Test &amp; Source Tree Verification:</strong>
-        Mechanic statuses are determined directly from client test scripts and crate code:
-        <span class="badge-tag badge-green" style="padding: 1px 6px; font-size: 0.72rem;">Ready</span> means an automated in-game test scenario exists in <code class="mono">tests/ingame/</code> and passes against a vanilla 26.2 server.
-        <span class="badge-tag badge-rust" style="padding: 1px 6px; font-size: 0.72rem;">In Progress</span> means implementation exists in Pomme crates, but edge-cases or <code class="mono">todo!()</code> markers remain.
-        <span class="badge-tag badge-gray" style="padding: 1px 6px; font-size: 0.72rem;">Planned</span> entries are cataloged on the roadmap.
-        The entire dataset lives in <a href="https://github.com/sqrilizz/pomme-website/blob/master/data/parity.json" target="_blank" rel="noreferrer"><code class="mono">data/parity.json</code></a>. Found a discrepancy? <a href="https://github.com/PommeMC/Client/issues" target="_blank" rel="noreferrer">Report a parity issue</a> or suggest a status update.
-      </div>
     </div>
 
     <div class="domain-matrix">
@@ -1580,6 +1442,13 @@ fn build_parity() -> String {
       </div>
     </div>
 
+    <div class="notice-box" style="margin-bottom: 2rem;">
+      <span class="notice-badge">Transparent Parity</span>
+      <div style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+        <strong>Granular Parity Matrix:</strong> We don&rsquo;t hide missing mobs or partial mechanics. Every single mob, block, item, and system is cataloged as <span class="badge-tag badge-green" style="padding: 1px 6px; font-size: 0.72rem;">Ready</span>, <span class="badge-tag badge-rust" style="padding: 1px 6px; font-size: 0.72rem;">In Progress</span>, or <span class="badge-tag badge-gray" style="padding: 1px 6px; font-size: 0.72rem;">Planned</span>. Verified entries link to real in-game automated test scripts (<code class="mono">tests/ingame/</code>). The entire catalog lives in <a href="https://github.com/PommeMC/Client" target="_blank" rel="noreferrer"><code class="mono">data/parity.json</code></a> and syncs directly from upstream.
+      </div>
+    </div>
+
     <div class="parity-toolbar">
       <div class="parity-toolbar-main">
         <div class="tracker-search-wrap">
@@ -1589,9 +1458,9 @@ fn build_parity() -> String {
         </div>
         <div class="parity-progress" role="img" aria-label="Engine implementation progress: {} ready, {} in progress, {} planned">
           <div class="tracker-bar-track">
-            <div class="tracker-bar-fill-ready" style="width: {:.1}%;"></div>
-            <div class="tracker-bar-fill-progress" style="width: {:.1}%;"></div>
-            <div class="tracker-bar-fill-planned" style="width: {:.1}%;"></div>
+            <div class="tracker-bar-fill-ready" style="width: {}%;"></div>
+            <div class="tracker-bar-fill-progress" style="width: {}%;"></div>
+            <div class="tracker-bar-fill-planned" style="width: {}%;"></div>
           </div>
           <div class="parity-progress-legend mono">
             <span><i class="dot dot-ready"></i>{} Ready</span>
@@ -1620,7 +1489,7 @@ fn build_parity() -> String {
 
     <div class="section-head" style="margin-top: 5rem;">
       <div class="section-kicker">Automated Verification</div>
-      <h2 class="section-title">Differential &amp; In-Game <span class="badge-highlight">Test Harness</span></h2>
+      <h2 class="section-title">Differential & In-Game <span class="badge-highlight">Test Harness</span></h2>
       <p class="section-subtitle">
         Scripted end-to-end runs execute real client builds against vanilla Mojang 26.2 servers across 88 in-game scenarios to guarantee gameplay-level parity and prevent regressions.
       </p>
@@ -1638,20 +1507,6 @@ fn build_parity() -> String {
   </div>
 </section>"#,
         total,
-        ready_pct,
-        ready_pct,
-        ready,
-        total,
-        ready_pct,
-        progress_pct,
-        planned_pct,
-        ready,
-        ready_pct,
-        in_progress,
-        progress_pct,
-        planned,
-        planned_pct,
-        milestones_html,
         domain_cards_html,
         meta.commit,
         meta.commit,
