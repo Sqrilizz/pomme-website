@@ -231,13 +231,13 @@ fn render_layout(
     }
 
     let canonical_path = if current_page == "/" {
-        String::new()
+        "/".to_string()
     } else {
         format!("{}/", current_page)
     };
 
     format!(
-        r##"<!DOCTYPE html>
+        r####"<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -245,7 +245,7 @@ fn render_layout(
   <title>{} | Pomme Minecraft Client (Rust &amp; Vulkan)</title>
   <meta name="description" content="{}">
   <meta name="theme-color" content="#08090d">
-  <link rel="canonical" href="{}/{}">
+  <link rel="canonical" href="{}{}">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/assets/brand/pomme.png">
   <link rel="apple-touch-icon" href="/assets/brand/pomme.png">
@@ -253,12 +253,79 @@ fn render_layout(
   <meta property="og:site_name" content="Pomme">
   <meta property="og:title" content="{} | Pomme Minecraft Client">
   <meta property="og:description" content="{}">
-  <meta property="og:url" content="{}/{}">
-  <meta property="og:image" content="{}/assets/brand/pomme.png">
+  <meta property="og:url" content="{}{}">
+  <meta property="og:image" content="{}/assets/brand/og_banner.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{} | Pomme Minecraft Client">
   <meta name="twitter:description" content="{}">
-  <meta name="twitter:image" content="{}/assets/brand/pomme.png">
+  <meta name="twitter:image" content="{}/assets/brand/og_banner.png">
+  <link rel="discord:component-embed" type="application/vnd.discord.component-embed+json" href="https://pomme.rs/discord-embed.json">
+  <script id="discord:component-embed" type="application/json">
+  {{
+    "component": {{
+      "type": 17,
+      "accent_color": 3066993,
+      "components": [
+        {{
+          "type": 9,
+          "components": [
+            {{
+              "type": 10,
+              "content": "**[Pomme](https://pomme.rs) — Native Minecraft Client"
+            }},
+            {{
+              "type": 10,
+              "content": "Written from scratch in Rust & Vulkan. Zero JVM runtime, 1.4s launch, and 18x less memory than vanilla Java."
+            }}
+          ],
+          "accessory": {{
+            "type": 11,
+            "media": {{
+              "url": "https://pomme.rs/assets/brand/pomme.png"
+            }}
+          }}
+        }},
+        {{
+          "type": 14,
+          "divider": true,
+          "spacing": 1
+        }},
+        {{
+          "type": 10,
+          "content": "⚡ **1.4s** Cold Boot  •  💾 **< 300 MB** RAM  •  ⏱️ **0 ms** GC Stutter"
+        }},
+        {{
+          "type": 1,
+          "components": [
+            {{
+              "type": 2,
+              "style": 5,
+              "label": "Get Release",
+              "url": "https://pomme.rs/downloads/"
+            }},
+            {{
+              "type": 2,
+              "style": 5,
+              "label": "GitHub",
+              "url": "https://github.com/PommeMC/Client"
+            }},
+            {{
+              "type": 2,
+              "style": 5,
+              "label": "Vanilla Parity",
+              "url": "https://pomme.rs/parity/"
+            }}
+          ]
+        }}
+      ]
+    }}
+  }}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -307,7 +374,7 @@ fn render_layout(
   </footer>
   <script src="/assets/app.js" defer></script>
 </body>
-</html>"##,
+</html>"####,
         title,
         desc,
         SITE_URL,
@@ -492,17 +559,22 @@ fn build_index(repo: &GithubRepo, commits: &[GithubCommit], version: &str) -> St
       </p>
     </div>
 
-    <div class="gallery-viewport-card">
+    <div class="gallery-viewport-card" id="gameplayViewport">
       <div class="gallery-topbar">
         <div class="terminal-dots">
           <div class="terminal-dot"></div>
           <div class="terminal-dot"></div>
           <div class="terminal-dot"></div>
         </div>
-        <div class="gallery-window-title mono">pomme-client</div>
+        <div class="gallery-window-title mono">pomme-client &bull; Vulkan 1.3 Swapchain</div>
+        <div class="gallery-controls">
+          <span class="gallery-badge mono"><span class="pulse-dot" style="width: 6px; height: 6px;"></span>60 FPS</span>
+          <button type="button" class="gallery-ctrl-btn mono" id="videoPlayPauseBtn" aria-label="Pause or play gameplay video">Pause</button>
+          <button type="button" class="gallery-ctrl-btn mono" id="videoFullscreenBtn" aria-label="Toggle fullscreen video">Fullscreen</button>
+        </div>
       </div>
       <div class="gallery-video-wrap">
-        <video autoplay loop muted playsinline poster="/assets/images/pomme_gameplay_poster.webp" class="gallery-main-video">
+        <video autoplay loop muted playsinline poster="/assets/images/pomme_gameplay_poster.webp" class="gallery-main-video" id="gameplayVideo">
           <source src="/assets/images/pomme_gameplay_60fps.mp4" type="video/mp4">
         </video>
       </div>
@@ -1095,10 +1167,23 @@ fn build_downloads(release: &GithubRelease, checksums: &HashMap<String, String>)
     )
 }
 
+#[derive(Debug, serde::Deserialize, Clone)]
+struct ParityMilestone {
+    name: String,
+    category: String,
+    commit: String,
+    pr: Option<String>,
+    author: String,
+    tag: String,
+    description: String,
+}
+
 #[derive(Debug, serde::Deserialize)]
 struct ParityDataset {
     meta: ParityMeta,
     items: Vec<ParityEntry>,
+    #[serde(default)]
+    recent_milestones: Vec<ParityMilestone>,
 }
 
 #[derive(Debug, serde::Deserialize)]
@@ -1219,6 +1304,52 @@ fn build_parity() -> String {
         ));
     }
 
+    let mut milestones_html = String::new();
+    for m in &dataset.recent_milestones {
+        let pr_badge = if let Some(pr) = &m.pr {
+            format!(r#"<span class="milestone-pr mono">{}</span>"#, pr)
+        } else {
+            String::new()
+        };
+        let test_link = if m.tag.starts_with("tests/") {
+            format!(
+                r#"<a href="https://github.com/PommeMC/Client/blob/master/{}" class="milestone-tag mono" target="_blank" rel="noreferrer" title="Inspect automated test on GitHub">&#9656; {} &nearr;</a>"#,
+                m.tag, m.tag
+            )
+        } else if m.tag.starts_with("pomme-") {
+            let crate_dir = m.tag.split("::").next().unwrap_or(&m.tag);
+            format!(
+                r#"<a href="https://github.com/PommeMC/Client/tree/master/{}" class="milestone-tag mono" target="_blank" rel="noreferrer" title="Inspect crate on GitHub">&#9656; {} &nearr;</a>"#,
+                crate_dir, m.tag
+            )
+        } else {
+            format!(r#"<span class="milestone-tag mono">{}</span>"#, m.tag)
+        };
+        milestones_html.push_str(&format!(
+            r#"<div class="milestone-card">
+  <div class="milestone-card-top">
+    <div class="milestone-card-title-row">
+      <h4>{}</h4>
+      <div style="display: flex; gap: 0.35rem; align-items: center; flex-shrink: 0;">
+        <span class="milestone-cat-badge mono">{}</span>
+        <span class="badge-tag badge-green">Ready</span>
+      </div>
+    </div>
+    <div class="milestone-meta-row mono">
+      <a href="https://github.com/PommeMC/Client/commit/{}" target="_blank" rel="noreferrer" class="milestone-sha">{} &nearr;</a>
+      {}
+      <span class="milestone-author">@{}</span>
+    </div>
+  </div>
+  <p class="milestone-desc">{}</p>
+  <div class="milestone-card-bot">
+    {}
+  </div>
+</div>"#,
+            m.name, m.category, m.commit, m.commit, pr_badge, m.author, m.description, test_link
+        ));
+    }
+
     let mut groups_html = String::new();
     for (key, num, title, _) in group_defs {
         let mut group_items = String::new();
@@ -1227,12 +1358,27 @@ fn build_parity() -> String {
                 continue;
             }
             let (badge_class, status_label) = status_chip(&item.status);
+            let tag_html = if item.tag.starts_with("tests/") {
+                format!(
+                    r#"<a href="https://github.com/PommeMC/Client/blob/master/{}" class="tracker-crate mono tracker-crate-link" target="_blank" rel="noreferrer" title="Inspect automated in-game test on GitHub">&#9656; {} &nearr;</a>"#,
+                    item.tag, item.tag
+                )
+            } else if item.tag.starts_with("pomme-") {
+                let crate_dir = item.tag.split("::").next().unwrap_or(&item.tag);
+                format!(
+                    r#"<a href="https://github.com/PommeMC/Client/tree/master/{}" class="tracker-crate mono tracker-crate-link" target="_blank" rel="noreferrer" title="Inspect crate source on GitHub">&#9656; {} &nearr;</a>"#,
+                    crate_dir, item.tag
+                )
+            } else {
+                format!(r#"<span class="tracker-crate mono">{}</span>"#, item.tag)
+            };
+
             group_items.push_str(&format!(
                 r#"<div class="tracker-item" data-category="{}" data-status="{}">
   <div class="tracker-info">
     <div class="tracker-item-head">
       <h4>{}</h4>
-      <span class="tracker-crate mono">{}</span>
+      {}
     </div>
     <p>{}</p>
   </div>
@@ -1241,7 +1387,7 @@ fn build_parity() -> String {
                 item.category,
                 item.status,
                 item.name,
-                item.tag,
+                tag_html,
                 item.description,
                 badge_class,
                 status_label
@@ -1336,10 +1482,74 @@ fn build_parity() -> String {
   <div class="container">
     <div class="section-head">
       <div class="section-kicker">Implementation Tracker</div>
-      <h1 class="section-title">Vanilla Parity & Feature Status</h1>
+      <h1 class="section-title">Vanilla Parity &amp; Feature Status</h1>
       <p class="section-subtitle">
-        Pomme tracks every Minecraft mechanic, mob, and block. Exactly {} entries cataloged across 8 domains with direct verification links. The full dataset lives in <code class="mono" style="color: var(--accent-rust);">parity.json</code>.
+        Pomme tracks every Minecraft mechanic, mob, and block against upstream client test scripts. Exactly {} cataloged entries with direct links to verified source code and in-game tests.
       </p>
+    </div>
+
+    <div class="parity-hero-card">
+      <div class="parity-hero-main">
+        <div class="parity-hero-pct-wrap">
+          <span class="parity-hero-number mono" data-counter="{:.1}">{:.1}</span>
+          <span class="parity-hero-symbol mono">%</span>
+        </div>
+        <div class="parity-hero-meta">
+          <div class="parity-hero-kicker mono">Ground Truth Verification</div>
+          <h2 class="parity-hero-title">Overall Vanilla Parity</h2>
+          <p class="parity-hero-subtitle">{} of {} cataloged features verified against upstream 26.2 client tests</p>
+        </div>
+      </div>
+      <div class="parity-hero-bars">
+        <div class="tracker-bar-track tracker-bar-hero">
+          <div class="tracker-bar-fill-ready" style="width: {:.1}%;"></div>
+          <div class="tracker-bar-fill-progress" style="width: {:.1}%;"></div>
+          <div class="tracker-bar-fill-planned" style="width: {:.1}%;"></div>
+        </div>
+        <div class="parity-hero-breakdown mono">
+          <div class="hero-breakdown-item">
+            <span class="dot dot-ready"></span>
+            <span class="hero-breakdown-label">Ready:</span>
+            <span class="hero-breakdown-val"><strong>{}</strong> ({:.1}%)</span>
+          </div>
+          <div class="hero-breakdown-item">
+            <span class="dot dot-progress"></span>
+            <span class="hero-breakdown-label">In Progress:</span>
+            <span class="hero-breakdown-val"><strong>{}</strong> ({:.1}%)</span>
+          </div>
+          <div class="hero-breakdown-item">
+            <span class="dot dot-planned"></span>
+            <span class="hero-breakdown-label">Planned:</span>
+            <span class="hero-breakdown-val"><strong>{}</strong> ({:.1}%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="milestones-section">
+      <div class="milestones-header">
+        <div class="milestones-title-wrap">
+          <span class="pulse-dot"></span>
+          <h2 class="milestones-heading mono">Recent Upstream Progress</h2>
+          <span class="badge-tag badge-rust">Live Feed</span>
+        </div>
+        <span class="milestones-sub mono">Closed mechanics and PRs verified in master</span>
+      </div>
+      <div class="milestones-grid">
+        {}
+      </div>
+    </div>
+
+    <div class="notice-box" style="margin-bottom: 2.25rem;">
+      <span class="notice-badge">How Parity Is Tracked</span>
+      <div style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+        <strong>Automated Test &amp; Source Tree Verification:</strong>
+        Mechanic statuses are determined directly from client test scripts and crate code:
+        <span class="badge-tag badge-green" style="padding: 1px 6px; font-size: 0.72rem;">Ready</span> means an automated in-game test scenario exists in <code class="mono">tests/ingame/</code> and passes against a vanilla 26.2 server.
+        <span class="badge-tag badge-rust" style="padding: 1px 6px; font-size: 0.72rem;">In Progress</span> means implementation exists in Pomme crates, but edge-cases or <code class="mono">todo!()</code> markers remain.
+        <span class="badge-tag badge-gray" style="padding: 1px 6px; font-size: 0.72rem;">Planned</span> entries are cataloged on the roadmap.
+        The entire dataset lives in <a href="https://github.com/sqrilizz/pomme-website/blob/master/data/parity.json" target="_blank" rel="noreferrer"><code class="mono">data/parity.json</code></a>. Found a discrepancy? <a href="https://github.com/PommeMC/Client/issues" target="_blank" rel="noreferrer">Report a parity issue</a> or suggest a status update.
+      </div>
     </div>
 
     <div class="domain-matrix">
@@ -1370,13 +1580,6 @@ fn build_parity() -> String {
       </div>
     </div>
 
-    <div class="notice-box" style="margin-bottom: 2rem;">
-      <span class="notice-badge">Transparent Parity</span>
-      <div style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
-        <strong>Granular Parity Matrix:</strong> We don&rsquo;t hide missing mobs or partial mechanics. Every single mob, block, item, and system is cataloged as <span class="badge-tag badge-green" style="padding: 1px 6px; font-size: 0.72rem;">Ready</span>, <span class="badge-tag badge-rust" style="padding: 1px 6px; font-size: 0.72rem;">In Progress</span>, or <span class="badge-tag badge-gray" style="padding: 1px 6px; font-size: 0.72rem;">Planned</span>. Verified entries link to real in-game automated test scripts (<code class="mono">tests/ingame/</code>). The entire catalog lives in <a href="https://github.com/PommeMC/Client" target="_blank" rel="noreferrer"><code class="mono">data/parity.json</code></a> and syncs directly from upstream.
-      </div>
-    </div>
-
     <div class="parity-toolbar">
       <div class="parity-toolbar-main">
         <div class="tracker-search-wrap">
@@ -1386,9 +1589,9 @@ fn build_parity() -> String {
         </div>
         <div class="parity-progress" role="img" aria-label="Engine implementation progress: {} ready, {} in progress, {} planned">
           <div class="tracker-bar-track">
-            <div class="tracker-bar-fill-ready" style="width: {}%;"></div>
-            <div class="tracker-bar-fill-progress" style="width: {}%;"></div>
-            <div class="tracker-bar-fill-planned" style="width: {}%;"></div>
+            <div class="tracker-bar-fill-ready" style="width: {:.1}%;"></div>
+            <div class="tracker-bar-fill-progress" style="width: {:.1}%;"></div>
+            <div class="tracker-bar-fill-planned" style="width: {:.1}%;"></div>
           </div>
           <div class="parity-progress-legend mono">
             <span><i class="dot dot-ready"></i>{} Ready</span>
@@ -1417,7 +1620,7 @@ fn build_parity() -> String {
 
     <div class="section-head" style="margin-top: 5rem;">
       <div class="section-kicker">Automated Verification</div>
-      <h2 class="section-title">Differential & In-Game <span class="badge-highlight">Test Harness</span></h2>
+      <h2 class="section-title">Differential &amp; In-Game <span class="badge-highlight">Test Harness</span></h2>
       <p class="section-subtitle">
         Scripted end-to-end runs execute real client builds against vanilla Mojang 26.2 servers across 88 in-game scenarios to guarantee gameplay-level parity and prevent regressions.
       </p>
@@ -1435,6 +1638,20 @@ fn build_parity() -> String {
   </div>
 </section>"#,
         total,
+        ready_pct,
+        ready_pct,
+        ready,
+        total,
+        ready_pct,
+        progress_pct,
+        planned_pct,
+        ready,
+        ready_pct,
+        in_progress,
+        progress_pct,
+        planned,
+        planned_pct,
+        milestones_html,
         domain_cards_html,
         meta.commit,
         meta.commit,
@@ -1936,8 +2153,50 @@ fn write_meta_files(out_dir: &Path) {
     sitemap.push_str("</urlset>\n");
 
     let robots = format!(
-        "User-agent: *\nAllow: /\n\nSitemap: {}/sitemap.xml\n",
-        SITE_URL
+        r#"#  ____                                 
+# |  _ \ ___  _ __ ___  _ __ ___   ___  
+# | |_) / _ \| '_ ` _ \| '_ ` _ \ / _ \ 
+# |  __/ (_) | | | | | | | | | | |  __/ 
+# |_|   \___/|_| |_| |_|_| |_| |_|\___| 
+# Native Minecraft Client in Rust & Vulkan
+# Zero JVM. Zero Mojang code. One binary to run.
+# https://pomme.rs
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+Allow: /discord-embed.json
+
+User-agent: *
+Allow: /discord-embed.json
+Allow: /
+Disallow: /dist/
+Disallow: /builder/
+Disallow: /scripts/
+Disallow: /data/
+Disallow: /*.json$
+
+Sitemap: {}/sitemap.xml
+Host: {}
+"#,
+        SITE_URL, SITE_URL
     );
 
     let headers = r#"/*
@@ -1950,6 +2209,9 @@ fn write_meta_files(out_dir: &Path) {
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /favicon.ico
   Cache-Control: public, max-age=604800
+/discord-embed.json
+  Content-Type: application/vnd.discord.component-embed+json; charset=utf-8
+  Access-Control-Allow-Origin: *
 "#;
 
     let redirects = r#"/downloads.html /downloads/ 301
@@ -1960,6 +2222,67 @@ fn write_meta_files(out_dir: &Path) {
 /download /downloads/ 301
 "#;
 
+    let discord_embed = r####"{
+
+  "component": {
+    "type": 17,
+    "accent_color": 3066993,
+    "components": [
+      {
+        "type": 9,
+        "components": [
+          {
+            "type": 10,
+            "content": "**[Pomme](https://pomme.rs) — Native Minecraft Client"
+          },
+          {
+            "type": 10,
+            "content": "Written from scratch in Rust & Vulkan. Zero JVM runtime, 1.4s launch, and 18x less memory than vanilla Java."
+          }
+        ],
+        "accessory": {
+          "type": 11,
+          "media": {
+            "url": "https://pomme.rs/assets/brand/pomme.png"
+          }
+        }
+      },
+      {
+        "type": 14,
+        "divider": true,
+        "spacing": 1
+      },
+      {
+        "type": 10,
+        "content": "⚡ **1.4s** Cold Boot  •  💾 **< 300 MB** RAM  •  ⏱️ **0 ms** GC Stutter"
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 5,
+            "label": "Get Release",
+            "url": "https://pomme.rs/downloads/"
+          },
+          {
+            "type": 2,
+            "style": 5,
+            "label": "GitHub",
+            "url": "https://github.com/PommeMC/Client"
+          },
+          {
+            "type": 2,
+            "style": 5,
+            "label": "Vanilla Parity",
+            "url": "https://pomme.rs/parity/"
+          }
+        ]
+      }
+    ]
+  }
+}"####;
+    let _ = fs::write(out_dir.join("discord-embed.json"), discord_embed);
     let _ = fs::write(out_dir.join("sitemap.xml"), sitemap);
     let _ = fs::write(out_dir.join("robots.txt"), robots);
     let _ = fs::write(out_dir.join("_headers"), headers);
@@ -1978,67 +2301,40 @@ fn write_meta_files(out_dir: &Path) {
 
 fn build_404() -> String {
     format!(
-        r#"<section class="section section-404">
+        r####"<section class="section section-404">
   <div class="container" style="max-width: 860px; text-align: center;">
-    <div class="hero-label" style="display: inline-flex; margin-bottom: 1.25rem;">
-      <span class="pulse-dot"></span>
-      <span>ERROR 404</span>
-      <span>&bull;</span>
-      <span>CHUNK_NOT_FOUND</span>
-    </div>
-    <h1 class="hero-title" style="margin-bottom: 1rem;">Coordinate <span class="badge-highlight">out of bounds</span></h1>
-    <p class="hero-desc" style="max-width: 620px; margin: 0 auto 2rem auto;">
-      The requested route or chunk does not exist in the world save or navigation graph.
+    <h1 class="hero-title" style="margin-bottom: 0.5rem;">Page <span class="badge-highlight">not found</span></h1>
+    <p class="hero-desc" style="max-width: 520px; margin: 0 auto 1.75rem auto;">
+      The requested page does not exist. Jump over the obstacles while we guide you back.
     </p>
 
-    <div class="hero-ctas" style="justify-content: center; margin-bottom: 3rem;">
-      <a href="/" class="btn btn-primary btn-lg">Return to Spawn</a>
-      <a href="/downloads/" class="btn btn-secondary btn-lg">Download Client</a>
-    </div>
-
-    <div class="terminal-card" style="text-align: left; margin: 0 auto 3.5rem auto;">
-      <div class="terminal-header">
-        <div class="terminal-dots">
-          <div class="terminal-dot"></div>
-          <div class="terminal-dot"></div>
-          <div class="terminal-dot"></div>
+    <div class="runner-game-card" id="pommeRunnerCard">
+      <div class="runner-game-head">
+        <div class="runner-game-title-group">
+          <span class="pulse-dot"></span>
+          <span class="runner-game-title mono">POMME RUNNER</span>
         </div>
-        <div class="terminal-title">pomme-client ~ route resolution trace</div>
+        <div class="runner-scores mono" id="runnerScores" aria-live="polite">
+          <span class="runner-hi">HI <span id="runnerHiScore">00000</span></span>
+          <span class="runner-cur" id="runnerCurScore">00000</span>
+        </div>
       </div>
-      <div class="terminal-body">
-        <div><span class="term-cmd">$</span> pomme-client --navigate {}/unknown_chunk</div>
-        <div class="term-dim">[pomme-route] Resolving client URL route...</div>
-        <div class="term-comment">[pomme-world] Error: Coordinate unmapped (HTTP 404: chunk missing)</div>
-        <div class="term-dim">[pomme-gpu] Pipeline flushed &bull; Viewport idle &bull; Ready for input</div>
-        <div><span class="term-highlight">&gt; Fallback navigation ready &mdash; select a verified destination below:</span><span class="term-cursor"></span></div>
+      <div class="runner-viewport" id="runnerViewport">
+        <canvas id="pommeRunnerCanvas" width="860" height="220" aria-label="Pomme Apple Dino Runner: Press Space or Tap to Jump over cacti"></canvas>
+      </div>
+      <div class="runner-game-foot mono">
+        <span>Press <kbd>SPACE</kbd> / <kbd>&uarr;</kbd> to jump, <kbd>&darr;</kbd> to fast-fall &bull; Catch Golden Apples!</span>
+        <button type="button" class="btn btn-secondary btn-sm" id="runnerRestartBtn">Restart</button>
       </div>
     </div>
 
-    <div class="error-destinations">
-      <a href="/" class="error-dest-card">
-        <span class="error-dest-kicker mono">01 // HOME</span>
-        <h3 class="error-dest-title">Overview</h3>
-        <p class="error-dest-desc">Vulkan 1.3 presentation, 165 FPS frame timing, and cold-start benchmark race.</p>
-      </a>
-      <a href="/downloads/" class="error-dest-card">
-        <span class="error-dest-kicker mono">02 // BINARIES</span>
-        <h3 class="error-dest-title">Downloads</h3>
-        <p class="error-dest-desc">Standalone native executables for Linux (AppImage), Windows (x64), and macOS.</p>
-      </a>
-      <a href="/parity/" class="error-dest-card">
-        <span class="error-dest-kicker mono">03 // STATUS</span>
-        <h3 class="error-dest-title">Vanilla Parity</h3>
-        <p class="error-dest-desc">Exhaustive tracker of all mobs, blocks, redstone, and mechanics against vanilla MC.</p>
-      </a>
-      <a href="/architecture/" class="error-dest-card">
-        <span class="error-dest-kicker mono">04 // ARCH</span>
-        <h3 class="error-dest-title">Architecture</h3>
-        <p class="error-dest-desc">Audit-friendly Rust crates: pomme-gpu, pomme-protocol, and in-process SteelMC.</p>
-      </a>
+    <div class="hero-ctas" style="justify-content: center; margin-top: 2rem;">
+      <a href="/" class="btn btn-primary btn-lg">Back to home &rarr;</a>
+      <a href="/downloads/" class="btn btn-secondary btn-lg">Downloads</a>
+      <a href="/parity/" class="btn btn-secondary btn-lg">Vanilla Parity</a>
     </div>
   </div>
-</section>"#,
-        SITE_URL
+</section>"####
     )
 }
 
@@ -2116,8 +2412,8 @@ fn build_site() {
         &build_community(&contributors, &repo),
     );
     let not_found_page = render_layout(
-        "404 — Chunk not found",
-        "This page failed to mesh: chunk not found. Mine an unrendered chunk on the Pomme 404 page to find a diamond and the way home.",
+        "404 — Page not found",
+        "The requested page does not exist. Play the Pomme Dino Runner or return to safety.",
         "/404",
         &version,
         &build_404(),
@@ -2145,6 +2441,7 @@ fn build_site() {
         ("architecture", arch_page),
         ("community", comm_page.clone()),
         ("contributors", comm_page),
+        ("404", not_found_page.clone()),
     ] {
         let dir = out_dir.join(name);
         fs::create_dir_all(&dir).expect("failed to create page directory");
